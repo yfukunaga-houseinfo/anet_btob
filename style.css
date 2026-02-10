@@ -23,9 +23,14 @@ body {
     z-index: 9999;
 }
 
-/* 共通カラー・アクセント */
-.accent-text { color: #1e3a8a; } /* ← #5B7B65 から変更 */
-.bg-accent { background-color: #1e3a8a; } /* ← #5B7B65 から変更 */
+/* 共通カラー・アクセント設定 */
+/* ネイビー（#1e3a8a）への統一と、HTML直書きクラスの上書き */
+.accent-text, .text-\[\#5B7B65\] { color: #1e3a8a !important; }
+.bg-accent, .bg-\[\#5B7B65\] { background-color: #1e3a8a !important; }
+.border-\[\#5B7B65\] { border-color: #1e3a8a !important; }
+
+/* ホバー時の色もネイビー系に上書き */
+.hover\:text-\[\#5B7B65\]:hover { color: #1e3a8a !important; }
 
 /* Bentoカードデザイン */
 .bento-card {
@@ -41,12 +46,13 @@ body {
 
 .bento-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(91, 123, 101, 0.08);
+    /* ホバー時の影もネイビー系に馴染ませる */
+    box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
 }
 
 /* ボタン共通デザイン */
 .btn-primary {
-    background-color: #1e3a8a; /* ← #5B7B65 から変更 */
+    background-color: #1e3a8a;
     color: white;
     padding: 1.25rem 2.5rem;
     border-radius: 100px;
@@ -61,7 +67,6 @@ body {
 .btn-primary:hover {
     opacity: 0.9;
     transform: scale(1.02);
-    /* 影の色もネイビー系に合わせるとさらに綺麗です */
     box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
 }
 
@@ -77,8 +82,8 @@ body {
 
 /* 成功事例用タグ */
 .case-study-tag {
-    background: #e0e7ff; /* ← 薄い青色に変更するとよりマッチします */
-    color: #1e3a8a; /* ← 文字もネイビーに */
+    background: #e0e7ff; /* 薄い青色 */
+    color: #1e3a8a;
     padding: 4px 12px;
     border-radius: 8px;
     font-size: 0.75rem;
@@ -93,7 +98,5 @@ body {
 
 /* 数値強調 */
 .stat-value {
-    /* ... */
-    color: #1e3a8a; /* ← ここもネイビーに */
+    color: #1e3a8a;
 }
-
