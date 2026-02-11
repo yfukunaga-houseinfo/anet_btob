@@ -12,13 +12,13 @@
         .accent-text { color: #1e3a8a !important; }
         .bento-card { background: white; border-radius: 32px; padding: 2.5rem; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
         .bento-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1); }
-        .btn-primary { background-color: #1e3a8a; color: white; padding: 1.25rem 2.5rem; border-radius: 100px; display: inline-flex; align-items: center; transition: all 0.3s ease; font-weight: 700; text-align: center; justify-content: center; }
+        .btn-primary { background-color: #1e3a8a; color: white; padding: 1.25rem 2.5rem; border-radius: 100px; display: inline-flex; align-items: center; transition: all 0.3s ease; font-weight: 700; text-align: center; justify-content: center; border: none; cursor: pointer; }
         .btn-primary:hover { opacity: 0.9; transform: scale(1.02); box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2); }
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(30, 58, 138, 0.6); backdrop-filter: blur(8px); }
         .modal-content { background-color: #F5F2ED; margin: 5% auto; padding: 0; border-radius: 40px; width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; }
         .close-modal { position: sticky; top: 20px; right: 20px; float: right; font-size: 28px; font-weight: bold; cursor: pointer; z-index: 101; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .step-trigger, .insight-trigger { position: relative; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); overflow: hidden; background: #fff; display: flex; flex-direction: column; justify-content: flex-start; border: 1px solid rgba(30, 58, 138, 0.05); }
-        .step-trigger { aspect-ratio: 1 / 1; }
+        .step-trigger { aspect-ratio: 1 / 1; border-radius: 24px; }
         .step-trigger:hover, .insight-trigger:hover { transform: translateY(-8px); background-color: #f0f7ff; }
         .step-illustration { position: absolute; bottom: 5%; right: 5%; width: 85%; height: 85%; opacity: 0.15; transition: all 0.6s ease; pointer-events: none; z-index: 0; }
         .step-text-wrapper { position: relative; z-index: 1; padding: 1.75rem; width: 100%; }
@@ -51,28 +51,34 @@
                 <div class="max-w-4xl">
                     <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base font-bold mb-6 shadow-sm uppercase tracking-widest">Brand Strategy × Architecture</span>
                     <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8">事業の価値を高めるのは、<br>他社には真似できない<span class="text-[#1e3a8a]">“ブランドの空間化”</span>です。</h1>
-                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed">拠点を単なる場所ではなく、企業のビジョンを体現する<span class="font-bold text-[#1e3a8a]">「ブランド資産」</span>へ。</p>
                 </div>
             </section>
 
             <section id="success-case" class="bento-card md:col-span-12 scroll-mt-24 mb-24">
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="lg:w-2/5">
-                        <div class="case-study-tag">成功事例：三島屋本店（自社ブランド確立）</div>
+                        <div class="case-study-tag">成功事例：三島屋本店</div>
                         <h3 class="text-2xl font-bold mb-6 text-[#1e3a8a]">事業の「らしさ」を空間化し、唯一無二の価値を確立。</h3>
-                        <p class="text-gray-600 text-sm mb-8 leading-relaxed">新店舗出店にあたり、自社ブランドの確立するための「ブランドの再定義」が求められました。5人の建築家が商品を最も美しく見せつつ、誰もが直感的にブランドを感じ取れる空間を構築。広報メディアとなり、事業拡大の確かな土台となるように計画しました。</p>
+                        <p class="text-gray-600 leading-relaxed text-sm mb-8">商品を最も美しく見せつつ、誰もが直感的にブランドを感じ取れる空間を構築。確かな土台となるように計画しました。</p>
                     </div>
                     <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100">
-                            <img src="images/39601.jpg" alt="店舗正面" class="w-full h-full object-cover">
-                        </div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100">
-                            <img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover">
-                        </div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100">
-                            <img src="images/39603.jpg" alt="カウンター" class="w-full h-full object-cover">
-                        </div>
+                        <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100"><img src="images/39601.jpg" alt="正面" class="w-full h-full object-cover"></div>
+                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100"><img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover"></div>
+                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100"><img src="images/39603.jpg" alt="詳細" class="w-full h-full object-cover"></div>
                     </div>
+                </div>
+            </section>
+
+            <!-- 実例集リンク -->
+            <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-8">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">数百件のコンペが証明するブランドの「確信」</h2>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
+                            私たちはこれまで<span class="font-bold text-white">数百件の住宅コンペ</span>を開催し、こだわりを形にしてきました。その「個」を際立たせる文化こそが、独自のブランドイメージを構築するための最強のパートナーとなります。
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 text-center"><a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] px-12">コンペ実例集を見る</a></div>
                 </div>
             </section>
         </div>
@@ -90,19 +96,7 @@
         </div>
     </footer>
 
-    <div id="processModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeProcessModal()">&times;</span>
-            <div class="p-8 md:p-12">
-                <h2 class="text-3xl font-bold mb-6 text-[#1e3a8a]">設計コンペの有効性とプロセス</h2>
-                <div class="text-center pb-8"><button onclick="closeProcessModal()" class="btn-primary">閉じる</button></div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const processModal = document.getElementById("processModal");
-        function closeProcessModal() { processModal.style.display = "none"; document.body.style.overflow = "auto"; }
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); }); }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
     </script>
