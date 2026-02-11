@@ -3,66 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>採用特化型オフィス設計 | 建築家ネットワーク・ナビ</title>
+    <title>採用特化型オフィス設計 | 一般社団法人建築家ネットワーク・ナビ</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* モーダル・インタラクション用の追加スタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 58, 138, 0.6);
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: #F5F2ED;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+        .close-modal {
+            position: sticky;
+            top: 20px;
+            right: 20px;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 101;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .step-trigger, .insight-trigger {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border: 1px solid rgba(30, 58, 138, 0.05);
+        }
+        .step-trigger { aspect-ratio: 1 / 1; }
+        .step-trigger:hover, .insight-trigger:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
+            background-color: #f0f7ff;
+        }
+        .step-illustration {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            width: 85%;
+            height: 85%;
+            opacity: 0.15;
+            transition: all 0.6s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .step-text-wrapper {
+            position: relative;
+            z-index: 1;
+            padding: 1.75rem;
+            width: 100%;
+        }
+        .step-num {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+        .step-label {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            font-weight: 700;
+            color: #4b5563;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeIn 1s ease forwards; }
+    </style>
 </head>
 <body class="noise-bg">
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <!-- Header Logo with entity update -->
             <div class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a]">
                 <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
             </div>
-            <div class="flex gap-8 text-sm font-medium">
-                <a href="index.html" class="hover:text-[#1e3a8a]">TOPに戻る</a>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="index.html" class="hover:text-[#1e3a8a]">TOP</a>
+                <a href="#why-5" class="hover:text-[#1e3a8a]">5人のコンペ</a>
+                <a href="#cases" class="hover:text-[#1e3a8a]">実例</a>
             </div>
+            <a href="#" class="btn-primary text-xs py-2 px-6">無料相談</a>
         </nav>
     </header>
 
     <main class="pt-32 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
+            
+            <!-- Hero Section for Recruitment -->
             <section class="mb-20 reveal">
                 <div class="max-w-4xl">
-                    <span class="accent-text font-bold mb-4 block tracking-widest uppercase">Recruitment × Architecture</span>
+                    <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base font-bold mb-6 shadow-sm uppercase tracking-widest">Recruitment × Architecture</span>
                     <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8">
-                        優秀な人材を獲得するには、<br>それにふさわしい<span class="text-[#1e3a8a]">職場環境</span>が必要です。
+                        優秀な人材を獲得するには、<br>
+                        それにふさわしい<span class="text-[#1e3a8a]">職場環境</span>が必要です。
                     </h1>
-                    <p class="text-xl text-gray-600 leading-relaxed">
-                        「働く場所」が弱ければ、選ばれません。オフィス環境を「採用投資」に変える戦略的設計。
+                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                        優秀な人材は職場に「ソフト（待遇）」×「ハード（環境）」の両立を求めます。<br>
+                        事務所は単なるコストではなく、最高の<span class="font-bold text-[#1e3a8a]">「採用投資」</span>へ。 5人の建築家が、御社の理念を形にする「選ばれるオフィス」をご提案します。
                     </p>
                 </div>
             </section>
 
+            <!-- Problem Insight Grid with Modal Triggers -->
             <section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24">
-                <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none">
-                    <h2 class="text-2xl font-bold mb-6">優秀層が会社を見る基準</h2>
-                    <p class="text-lg opacity-90 mb-8 leading-relaxed">給与だけでなく「成長できる環境か」を問い続けています。職場環境は、経営者の「本気度」の現れです。</p>
+                <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none shadow-xl flex flex-col">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-tight">優秀層が会社を見る“本当の基準”</h2>
+                    <p class="text-lg opacity-90 mb-8 leading-relaxed">
+                        給与や福利厚生は「最低限の条件」に過ぎません。<br>
+                        本当に優秀な人材ほど、<span class="font-bold underline decoration-2">「この環境で自分の価値を高められるか」</span>という経営者の本気度を、空間から感じ取っています。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-auto">
+                        <div class="insight-trigger bg-white/10 p-4 rounded-2xl border border-white/20 hover:bg-white/30 transition-all text-left" onclick="openInsightModal('soft')">
+                            <div class="text-xs font-bold mb-1 opacity-70 uppercase">Pay & Benefits</div>
+                            <div class="text-sm font-bold text-blue-200">最低限の条件 ＞</div>
+                        </div>
+                        <div class="insight-trigger bg-white/20 p-4 rounded-2xl border border-white/40 shadow-sm hover:bg-white/40 transition-all text-left" onclick="openInsightModal('hard')">
+                            <div class="text-xs font-bold mb-1 uppercase text-blue-100">Workplace</div>
+                            <div class="text-sm font-bold">選ばれるための投資 ＞</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bento-card md:col-span-5">
-                    <h3 class="text-xl font-bold mb-6 text-[#1e3a8a]">陥りがちな失敗</h3>
-                    <ul class="space-y-4 text-sm text-gray-500">
-                        <li class="flex gap-3"><span class="accent-text font-bold text-[#1e3a8a]">×</span> 「仕事ができれば場所はどこでもいい」</li>
-                        <li class="flex gap-3"><span class="accent-text font-bold text-[#1e3a8a]">×</span> 「事務所はただのコストである」</li>
+
+                <div class="bento-card md:col-span-5 bg-white">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800 italic">陥りがちな失敗パターン</h3>
+                    <ul class="space-y-6 text-sm text-gray-500">
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>「仕事ができれば場所は関係ない」という慢心。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>「とりあえず綺麗ならいい」という戦略なき改装。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>一社だけの提案を鵜呑みにし、最適解を見逃す。</div>
+                        </li>
                     </ul>
                 </div>
                 <div class="bento-card md:col-span-12">
                     <div class="case-study-tag">成功事例：損害保険会社</div>
                     <h3 class="text-2xl font-bold mb-6">オフィス環境を整え、優秀層の定着率が劇的向上。</h3>
-                    <p class="text-gray-600 leading-relaxed max-w-2xl">東京本社と同等以上の洗練された空間を構築した結果、採用応募の質が変わり、将来の幹部候補の確保に成功しました。</p>
+                    <p class="text-gray-600 leading-relaxed max-w-2xl text-sm md:text-base">東京本社と同等以上の洗練された空間を構築した結果、採用応募の質が変わり、将来の幹部候補の確保に成功しました。</p>
                 </div>
             </section>
 
-            <section class="text-center bg-[#1e3a8a] p-16 rounded-[48px] text-white">
-                <h2 class="text-3xl font-bold mb-8">採用に強いオフィスは、偶然では生まれません。</h2>
-                <a href="#" class="btn-primary bg-white text-[#1e3a8a]">採用戦略×設計 無料相談</a>
+            <!-- USP Section -->
+            <section id="why-5" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="text-[#1e3a8a]">「5人の建築家」</span>なのか</h2>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            採用戦略に、唯一の正解はありません。<br>
+                            だからこそ、1人の設計士に任せきるのではなく、5人のプロが御社のビジョンを5通りの空間へ翻訳し、競い合う。<br>
+                            比較することで初めて、<span class="font-bold text-[#1e3a8a]">「これこそが我が社の色だ」</span>と確信できる案に出会えます。
+                        </p>
+                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
+                            設計コンペの有効性を詳しく見る
+                        </button>
+                    </div>
+
+                    <!-- Steps Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
+                            <div class="step-illustration">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="55" cy="70" r="18" />
+                                    <path d="M35 100 Q 55 120, 75 100 L 78 180 H 32 L 35 100" />
+                                    <circle cx="145" cy="80" r="22" />
+                                    <path d="M120 115 Q 145 145, 170 115 L 175 190 H 115 L 120 115" />
+                                </svg>
+                            </div>
+                            <div class="step-text-wrapper">
+                                <div class="step-num">01</div>
+                                <div class="step-label">戦略を<br>ヒアリング</div>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(2)">
+                            <div class="step-illustration">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="40" y="40" width="35" height="35" rx="2" />
+                                    <rect x="90" y="40" width="35" height="35" rx="2" stroke-width="2" />
+                                    <rect x="140" y="40" width="35" height="35" rx="2" />
+                                    <circle cx="150" cy="155" r="30" stroke-width="1.5" />
+                                </svg>
+                            </div>
+                            <div class="step-text-wrapper">
+                                <div class="step-num">02</div>
+                                <div class="step-label">5名を<br>厳選</div>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(3)">
+                            <div class="step-illustration">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 165 H 180" stroke-width="1.5" />
+                                    <path d="M40 165 V 100 L 100 65 L 160 100 V 165" />
+                                </svg>
+                            </div>
+                            <div class="step-text-wrapper">
+                                <div class="step-num">03</div>
+                                <div class="step-label">5つのプランを<br>直接提案</div>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(4)">
+                            <div class="step-illustration">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="45" y="45" width="110" height="130" rx="4" />
+                                    <circle cx="155" cy="50" r="28" fill="#1e3a8a" fill-opacity="0.08" />
+                                    <path d="M145 52 L 152 59 L 168 43" stroke="#1e3a8a" stroke-width="3" />
+                                </svg>
+                            </div>
+                            <div class="step-text-wrapper">
+                                <div class="step-num">04</div>
+                                <div class="step-label">最適案を<br>選択</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
+
+            <!-- Case Study Archive Section -->
+            <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-8">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">コンペが生み出した設計実例</h2>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
+                            これまで私たちは住宅建築を中心に数千件の設計コンペを開催し、一軒一軒のこだわりを形にしてきました。<br>
+                            正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
+                            しかし、一軒一軒の「理想の暮らし」を極限まで突き詰め、建築家同士が熾烈な知恵を競い合ってきた住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 text-center lg:text-right">
+                        <a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-8">
+                            コンペ実例集を見る
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="text-center bg-[#F5F2ED] p-16 rounded-[48px] border-2 border-dashed border-[#1e3a8a]/20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-[#1e3a8a]">採用に強いオフィスは、偶然では生まれません。</h2>
+                <p class="mb-12 text-gray-600 max-w-2xl mx-auto text-sm md:text-base">まずは貴社の採用目標と将来像をお聞かせください。<br>空間が、御社の最強の採用武器に変わるプロセスをご案内します。</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#" class="btn-primary px-12">採用戦略×設計 無料相談</a>
+                </div>
+            </section>
+
         </div>
     </main>
 
-    <!-- Footer with updated Links and Entity -->
+    <!-- Modal for Insights (Soft/Hard) -->
+    <div id="insightModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeInsightModal()">&times;</span>
+            <div class="p-8 md:p-12" id="insightContent">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Detailed Process (Universal) -->
+    <div id="processModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProcessModal()">&times;</span>
+            <div class="p-8 md:p-12">
+                <h2 class="text-3xl font-bold accent-text mb-6 text-[#1e3a8a]">設計コンペの有効性とプロセス</h2>
+                <div class="space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold text-[#1e3a8a] mb-3 text-sm">思考のバイアスを排除</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">一人の設計士の得意分野に縛られず、5通りの多角的なアプローチから最適な戦略を選べます。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold text-[#1e3a8a] mb-3 text-sm">投資対効果の最大化</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">ROIに対して、最も効率の良いプランを比較検証し、確信ある投資が可能になります。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold text-[#1e3a8a] mb-3 text-sm">確信ある意思決定</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">5案を比較し抜いた結論は、社内外を納得させる強力な経営判断の根拠となります。</p>
+                        </div>
+                    </div>
+                    <div id="step-detail-1" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h4 class="text-[#1e3a8a] font-bold mb-2">01 戦略をヒアリング</h4>
+                        <p class="text-sm text-gray-600">経営者の想いや具体的な数値を専門家が引き出し、建築家が共通の基準で競える資料を作成します。</p>
+                    </div>
+                    <div id="step-detail-2" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h4 class="text-[#1e3a8a] font-bold mb-2">02 5名を厳選</h4>
+                        <p class="text-sm text-gray-600">業態・予算・ブランドの方向性に最もマッチする精鋭5名をマッチングします。</p>
+                    </div>
+                    <div id="step-detail-3" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h4 class="text-[#1e3a8a] font-bold mb-2">03 5つのプランを直接提案</h4>
+                        <p class="text-sm text-gray-600">建築家が現地を確認し対面でプレゼン。経営課題をどう解決するか直接ぶつけ合います。</p>
+                    </div>
+                    <div id="step-detail-4" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h4 class="text-[#1e3a8a] font-bold mb-2">04 最適案を選択</h4>
+                        <p class="text-sm text-gray-600">経営合理性に基づいて最高の5案から確信を持って一社を選べます。</p>
+                    </div>
+                    <div class="text-center pb-8"><button onclick="closeProcessModal()" class="btn-primary">閉じる</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
@@ -78,8 +359,75 @@
     </footer>
 
     <script>
-        const obs = new IntersectionObserver((es) => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('reveal'); }), { threshold: 0.1 });
-        document.querySelectorAll('section, .bento-card').forEach(el => { el.classList.add('opacity-0'); obs.observe(el); });
+        const processModal = document.getElementById("processModal");
+        const insightModal = document.getElementById("insightModal");
+        const openProcessBtn = document.getElementById("openProcess");
+
+        // Insight Modal logic - Text size for specific phrases updated to text-sm
+        const insights = {
+            soft: {
+                title: "待遇（ソフト）は「選考のスタートライン」",
+                body: `<p class="text-gray-600 leading-relaxed mb-6">給与や福利厚生は、今の時代、優秀な人が「その会社を検討リストに入れるか」を決めるだけの基準に過ぎません。足りなければ土俵にすら上がれませんが、ただ高いだけでは「ここで骨を埋めたい」と思わせる決定打にはならないのが現実です。</p>
+                       <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                           <h4 class="font-bold text-[#1e3a8a] mb-2">「条件」だけで集める怖さ</h4>
+                           <p class="text-sm text-blue-700 leading-relaxed">条件だけで寄ってきた人は、より良い条件を出す会社が現れれば、あっさりと去っていきます。採用競争が激化する中で、終わりのない「条件の吊り上げ」に付き合い続けるのは、経営にとってあまりに大きなリスクです。</p>
+                       </div>`
+            },
+            hard: {
+                title: "環境（ハード）は「経営者の覚悟」の現れ",
+                body: `<p class="text-gray-600 leading-relaxed mb-6">どんな場所で働かせるかは、経営者が社員をどれだけ大切に思っているか、その「本気度」を無言で語ります。ただの作業場ではない、誇りを持って働ける空間は、社員の帰属意識を呼び起こし、数字以上のパフォーマンスを生み出す原動力になります。</p>
+                       <div class="p-6 bg-[#1e3a8a] text-white rounded-2xl">
+                           <h4 class="font-bold mb-2">「この場所」が最強の求人票になる</h4>
+                           <p class="text-sm opacity-80 leading-relaxed">「ここで働いている自分」をイメージしてワクワクする。そんな空間は、どんな求人広告よりも人を惹きつけます。広告費に頼らなくても自然と人が集まり、社員が自慢したくなる会社になる。それが、建築を「コスト」ではなく「投資」と捉える最大のメリットです。</p>
+                       </div>`
+            }
+        };
+
+        function openInsightModal(type) {
+            const data = insights[type];
+            document.getElementById("insightContent").innerHTML = `
+                <h2 class="text-2xl md:text-3xl font-bold accent-text mb-6 text-[#1e3a8a]">${data.title}</h2>
+                <div class="insight-body">${data.body}</div>
+                <div class="text-center mt-10"><button onclick="closeInsightModal()" class="btn-primary">閉じる</button></div>
+            `;
+            insightModal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeInsightModal() {
+            insightModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Process Modal logic
+        openProcessBtn.onclick = function() { openModalAtStep(0); }
+        
+        function openModalAtStep(stepNumber) {
+            processModal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            if (stepNumber > 0) {
+                setTimeout(() => {
+                    const target = document.getElementById(`step-detail-${stepNumber}`);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        function closeProcessModal() {
+            processModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close logic for all modals
+        window.onclick = function(event) {
+            if (event.target == processModal) closeProcessModal();
+            if (event.target == insightModal) closeInsightModal();
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
     </script>
 </body>
 </html>
