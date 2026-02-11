@@ -97,6 +97,9 @@
             font-weight: 700;
             color: #4b5563;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -104,17 +107,18 @@
         .reveal { animation: fadeIn 1s ease forwards; }
     </style>
 </head>
-<body class="noise-bg">
+<body class="noise-bg" id="page-top">
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <div class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a]">
+            <!-- ロゴは index.html へリンク -->
+            <a href="index.html" class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a] hover:opacity-80 transition-opacity">
                 <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
-            </div>
+            </a>
             <div class="hidden md:flex gap-8 text-sm font-medium">
-                <a href="index.html" class="hover:text-[#1e3a8a]">TOP</a>
+                <!-- TOPは現在のページの一番上 (#page-top) へ -->
+                <a href="#page-top" class="hover:text-[#1e3a8a]">TOP</a>
                 <a href="#why-5" class="hover:text-[#1e3a8a]">5人のコンペ</a>
-                <!-- Updated Link Target -->
                 <a href="#success-case" class="hover:text-[#1e3a8a]">実例</a>
             </div>
             <a href="#" class="btn-primary text-xs py-2 px-6">無料相談</a>
@@ -124,7 +128,7 @@
     <main class="pt-32 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
             
-            <!-- Hero Section for Recruitment -->
+            <!-- ヒーローセクション -->
             <section class="mb-20 reveal">
                 <div class="max-w-4xl">
                     <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base font-bold mb-6 shadow-sm uppercase tracking-widest">Recruitment × Architecture</span>
@@ -139,7 +143,7 @@
                 </div>
             </section>
 
-            <!-- Problem Insight Grid -->
+            <!-- 課題と気づきのグリッド -->
             <section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24">
                 <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none shadow-xl flex flex-col">
                     <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-tight">優秀層が会社を見る“本当の基準”</h2>
@@ -177,7 +181,7 @@
                     </ul>
                 </div>
 
-                <!-- Success Case Section with Anchor ID -->
+                <!-- 成功事例セクション -->
                 <div id="success-case" class="bento-card md:col-span-12 scroll-mt-24">
                     <div class="flex flex-col lg:flex-row gap-10">
                         <div class="lg:w-1/3">
@@ -202,7 +206,7 @@
                 </div>
             </section>
 
-            <!-- USP Section -->
+            <!-- 5人のコンペセクション -->
             <section id="why-5" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
                 <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -218,7 +222,6 @@
                         </button>
                     </div>
 
-                    <!-- Steps Grid -->
                     <div class="grid grid-cols-2 gap-4">
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
                             <div class="step-illustration">
@@ -277,11 +280,11 @@
                 </div>
             </section>
 
-            <!-- Case Study Archive Section -->
+            <!-- 実例集への案内 -->
             <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-8">
-                        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">コンペが生み出した設計実例</h2>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">コンペが生み出した設計実例</h2>
                         <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
                             これまで私たちは住宅建築を中心に数千件の設計コンペを開催し、一軒一軒のこだわりを形にしてきました。<br>
                             正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
@@ -299,7 +302,7 @@
                 </div>
             </section>
 
-            <!-- CTA Section -->
+            <!-- CTA -->
             <section class="text-center bg-[#F5F2ED] p-16 rounded-[48px] border-2 border-dashed border-[#1e3a8a]/20">
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-[#1e3a8a]">採用に強いオフィスは、偶然では生まれません。</h2>
                 <p class="mb-12 text-gray-600 max-w-2xl mx-auto text-sm md:text-base">まずは貴社の採用目標と将来像をお聞かせください。<br>空間が、御社の最強の採用武器に変わるプロセスをご案内します。</p>
@@ -307,21 +310,17 @@
                     <a href="#" class="btn-primary px-12">採用戦略×設計 無料相談</a>
                 </div>
             </section>
-
         </div>
     </main>
 
-    <!-- Modal for Insights (Soft/Hard) -->
+    <!-- モーダル集 -->
     <div id="insightModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeInsightModal()">&times;</span>
-            <div class="p-8 md:p-12" id="insightContent">
-                <!-- Content injected via JS -->
-            </div>
+            <div class="p-8 md:p-12" id="insightContent"></div>
         </div>
     </div>
 
-    <!-- Modal for Detailed Process (Universal) -->
     <div id="processModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeProcessModal()">&times;</span>
@@ -364,6 +363,7 @@
         </div>
     </div>
 
+    <!-- フッター -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
