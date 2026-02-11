@@ -114,7 +114,8 @@
             <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="index.html" class="hover:text-[#1e3a8a]">TOP</a>
                 <a href="#why-5" class="hover:text-[#1e3a8a]">5人のコンペ</a>
-                <a href="#cases" class="hover:text-[#1e3a8a]">実例</a>
+                <!-- Updated Link Target -->
+                <a href="#success-case" class="hover:text-[#1e3a8a]">実例</a>
             </div>
             <a href="#" class="btn-primary text-xs py-2 px-6">無料相談</a>
         </nav>
@@ -176,8 +177,8 @@
                     </ul>
                 </div>
 
-                <!-- Success Case Section with Real Images -->
-                <div class="bento-card md:col-span-12">
+                <!-- Success Case Section with Anchor ID -->
+                <div id="success-case" class="bento-card md:col-span-12 scroll-mt-24">
                     <div class="flex flex-col lg:flex-row gap-10">
                         <div class="lg:w-1/3">
                             <div class="case-study-tag">成功事例：損害保険会社</div>
@@ -187,15 +188,12 @@
                             </p>
                         </div>
                         <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Exterior -->
                             <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100">
                                 <img src="images/S-takemoto_101.jpg" alt="損害保険会社 外観" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x1200?text=Exterior+View'">
                             </div>
-                            <!-- Interior 1 -->
                             <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100">
                                 <img src="images/S-takemoto_122.jpg" alt="オフィス内観 デスク" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=Office+Interior'">
                             </div>
-                            <!-- Interior 2 -->
                             <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100">
                                 <img src="images/S-takemoto_126.jpg" alt="オフィス内観 ラウンジ" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=Lounge+Space'">
                             </div>
@@ -204,7 +202,7 @@
                 </div>
             </section>
 
-            <!-- USP Section: The "5 Architects" -->
+            <!-- USP Section -->
             <section id="why-5" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
                 <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -366,7 +364,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
