@@ -51,7 +51,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* ステップカードのデザイン調整 */
+        /* ステップカードのデザイン調整：文字サイズと余白を完全に統一 */
         .step-trigger {
             position: relative;
             cursor: pointer;
@@ -60,8 +60,9 @@
             background: #fff;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             border: 1px solid rgba(0,0,0,0.05);
+            aspect-ratio: 1 / 1; /* 正方形を維持 */
         }
         .step-trigger:hover {
             transform: translateY(-8px);
@@ -69,30 +70,45 @@
             border-color: rgba(30, 58, 138, 0.2);
         }
 
-        /* 線画イラストの配置 */
+        /* 線画イラストの配置：背景として透過 */
         .step-illustration {
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 80%;
-            height: 80%;
-            opacity: 0.12;
+            width: 85%;
+            height: 85%;
+            opacity: 0.1;
             transition: all 0.6s ease;
             pointer-events: none;
             z-index: 0;
         }
         .step-trigger:hover .step-illustration {
-            opacity: 0.25;
-            transform: scale(1.08) translateX(-10px);
+            opacity: 0.2;
+            transform: scale(1.05);
         }
 
         .step-text-wrapper {
             position: relative;
             z-index: 1;
+            padding: 1.5rem; /* 内側の余白を統一 */
             width: 100%;
         }
 
-        /* 共通のアニメーション */
+        /* 文字サイズ指定のクラス */
+        .step-num {
+            font-size: 1.875rem; /* text-3xl */
+            line-height: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+        .step-label {
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+            font-weight: 700;
+            color: #4b5563; /* text-gray-600 */
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -171,15 +187,16 @@
                 </div>
             </section>
 
-            <!-- System Section with Animated Step Cards -->
+            <!-- System Section -->
             <section id="system" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
                 <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
                     <div>
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="text-[#1e3a8a]">「5人の建築家」</span>なのか</h2>
+                        <!-- Updated Text Section -->
                         <p class="text-gray-600 mb-8 leading-relaxed">
-                            1人の設計士に、会社の未来を任せきりにできますか？<br>
-                            独立した5名の建築家が、あなたのビジネスに対する<span class="font-bold text-gray-800">「5つの異なる経営解」</span>を提示します。
+                            1人の設計士の提案に、会社の未来を背負わせますか？<br>
+                            5名の建築家が、あなたのビジネスに対する建築の<span class="font-bold text-gray-800">「5つの異なるプラン」</span>を提示します。
                         </p>
                         <ul class="space-y-4 mb-10">
                             <li class="flex items-center gap-3">
@@ -188,7 +205,7 @@
                             </li>
                             <li class="flex items-center gap-3">
                                 <span class="w-6 h-6 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center text-xs font-bold">✓</span>
-                                <span class="font-medium text-gray-700">比較することで、最も<span class="font-bold text-[#1e3a8a]">「勝てる」</span>案を確信する</span>
+                                <span class="font-medium text-gray-700 text-sm">比較することで、最も<span class="font-bold text-[#1e3a8a]">「勝てる」</span>案を確信する</span>
                             </li>
                         </ul>
                         <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
@@ -196,82 +213,101 @@
                         </button>
                     </div>
 
-                    <!-- Steps Grid with Background Line Illustrations -->
+                    <!-- Steps Grid: 文字サイズを「01」に統一 -->
                     <div class="grid grid-cols-2 gap-4">
-                        <!-- Step 01: Hearing -->
-                        <div class="aspect-square rounded-3xl p-6 step-trigger" onclick="openModalAtStep(1)">
+                        <!-- Step 01: Strategic Hearing -->
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
                             <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Left Person -->
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="60" cy="70" r="18" />
                                     <path d="M40 100 Q 60 120, 80 100 L 85 180 H 35 L 40 100" />
-                                    <!-- Right Person -->
                                     <circle cx="140" cy="80" r="22" />
                                     <path d="M120 110 Q 140 135, 160 110 L 165 190 H 115 L 120 110" />
-                                    <!-- Speech Bubble Line -->
                                     <path d="M140 50 Q 150 20, 180 40" stroke-dasharray="4 4" />
                                 </svg>
                             </div>
                             <div class="step-text-wrapper">
-                                <div class="text-3xl font-bold text-[#1e3a8a] mb-1">01</div>
-                                <div class="text-sm font-bold text-gray-600">戦略を<br>ヒアリング</div>
+                                <div class="step-num">01</div>
+                                <div class="step-label">戦略を<br>ヒアリング</div>
                             </div>
                         </div>
 
                         <!-- Step 02: Selection -->
-                        <div class="aspect-square rounded-3xl p-6 step-trigger" onclick="openModalAtStep(2)">
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(2)">
                             <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="40" y="40" width="30" height="30" rx="4" />
                                     <rect x="85" y="40" width="30" height="30" rx="4" />
                                     <rect x="130" y="40" width="30" height="30" rx="4" />
                                     <rect x="40" y="85" width="30" height="30" rx="4" stroke-width="3" />
                                     <rect x="85" y="85" width="30" height="30" rx="4" />
-                                    <rect x="130" y="85" width="30" height="30" rx="4" />
+                                    <rect x="130" y="85" width="30" height="30" rx="4" stroke-width="3" />
                                     <circle cx="150" cy="150" r="35" />
                                     <line x1="125" y1="125" x2="140" y2="140" />
                                 </svg>
                             </div>
                             <div class="step-text-wrapper">
-                                <div class="text-3xl font-bold text-[#1e3a8a] mb-1">02</div>
-                                <div class="text-sm font-bold text-gray-600">5名を<br>厳選</div>
+                                <div class="step-num">02</div>
+                                <div class="step-label">5名を<br>厳選</div>
                             </div>
                         </div>
 
                         <!-- Step 03: Direct Proposal -->
-                        <div class="aspect-square rounded-3xl p-6 step-trigger" onclick="openModalAtStep(3)">
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(3)">
                             <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M30 160 H 170" />
                                     <path d="M50 160 V 100 L 100 70 L 150 100 V 160" />
-                                    <rect x="80" y="110" width="40" height="50" />
+                                    <rect x="80" y="115" width="40" height="45" />
                                     <path d="M20 80 Q 50 20, 100 50 T 180 80" stroke-opacity="0.3" />
-                                    <circle cx="100" cy="70" r="5" fill="#1e3a8a" />
+                                    <circle cx="100" cy="70" r="4" fill="#1e3a8a" />
                                 </svg>
                             </div>
                             <div class="step-text-wrapper">
-                                <div class="text-3xl font-bold text-[#1e3a8a] mb-1">03</div>
-                                <div class="text-[10px] font-bold text-gray-600 leading-tight">5つのプランを<br>直接提案</div>
+                                <div class="step-num">03</div>
+                                <div class="step-label">5つのプランを<br>直接提案</div>
                             </div>
                         </div>
 
                         <!-- Step 04: Optimal Choice -->
-                        <div class="aspect-square rounded-3xl p-6 step-trigger" onclick="openModalAtStep(4)">
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(4)">
                             <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="50" y="50" width="100" height="120" rx="5" />
-                                    <line x1="70" y1="80" x2="130" y2="80" stroke-opacity="0.5" />
-                                    <line x1="70" y1="100" x2="130" y2="100" stroke-opacity="0.5" />
-                                    <line x1="70" y1="120" x2="100" y2="120" stroke-opacity="0.5" />
-                                    <circle cx="150" cy="50" r="25" fill="#1e3a8a" fill-opacity="0.1" />
-                                    <path d="M140 50 L 148 58 L 165 40" stroke-width="4" />
+                                    <line x1="70" y1="80" x2="130" y2="80" stroke-opacity="0.4" />
+                                    <line x1="70" y1="100" x2="130" y2="100" stroke-opacity="0.4" />
+                                    <line x1="70" y1="120" x2="100" y2="120" stroke-opacity="0.4" />
+                                    <circle cx="155" cy="55" r="22" fill="#1e3a8a" fill-opacity="0.1" />
+                                    <path d="M148 55 L 153 60 L 165 48" stroke-width="3" />
                                 </svg>
                             </div>
                             <div class="step-text-wrapper">
-                                <div class="text-3xl font-bold text-[#1e3a8a] mb-1">04</div>
-                                <div class="text-sm font-bold text-gray-600">最適案を<br>選択</div>
+                                <div class="step-num">04</div>
+                                <div class="step-label">最適案を<br>選択</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Case Study Archive Section -->
+            <section class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-8">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">コンペが生み出した設計実例</h2>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
+                            これまで私たちは住宅建築を中心に数千件の設計コンペを開催し、唯一無二の価値を形にしてきました。<br>
+                            正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
+                            しかし、一軒一軒の「理想の暮らし」を極限まで突き詰め、建築家同士が熾烈な知恵を競い合ってきた住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 text-center lg:text-right">
+                        <a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-8">
+                            コンペ実例集を見る
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </section>
