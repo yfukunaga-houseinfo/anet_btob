@@ -1,207 +1,343 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>戦略ヒアリングイメージ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* デザインコンセプトに基づいたスタイル */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-      background-color: #F5F2ED; /* 生成り */
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 300px; /* プレビュー用に高さを調整 */
-      position: relative;
-    }
-
-    /* 微細Noise Texture */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9iMTAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjAzIi8+PC9zdmc+'); /* 簡易ノイズ */
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .illustration-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-    }
-
-    /* 背景イラスト：有機的な曲線とBento UI */
-    .background-elements {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    .bento-shape {
-      position: absolute;
-      background-color: rgba(91, 123, 101, 0.1); /* アクセントカラーの透過 */
-      border-radius: 30px;
-    }
-
-    .shape-1 {
-      top: 20px;
-      left: 30px;
-      width: 120px;
-      height: 150px;
-      transform: rotate(-10deg);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .shape-2 {
-      bottom: 30px;
-      right: 20px;
-      width: 180px;
-      height: 100px;
-      transform: rotate(5deg);
-      animation: float 7s ease-in-out infinite reverse;
-    }
-
-    /* Organic Minimalismの曲線 */
-    .organic-line {
-      position: absolute;
-      stroke: rgba(91, 123, 101, 0.3);
-      fill: none;
-      stroke-width: 2;
-    }
-
-    .line-1 {
-      top: 50%;
-      left: 10%;
-      width: 80%;
-      height: 40%;
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      animation: drawLine 3s ease-out forwards, float 8s ease-in-out infinite 1s;
-    }
-
-    /* 人物イラスト：線画、柔らかいMicro-interactions */
-    .person-illustration {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: auto;
-      z-index: 1;
-      opacity: 0;
-      animation: fadeIn 1.5s ease-out 0.5s forwards;
-    }
-
-    .person-illustration svg {
-      width: 100%;
-      height: auto;
-    }
-
-    /* テキスト */
-    .text-content {
-      position: absolute;
-      bottom: 10px;
-      left: 20px;
-      z-index: 2;
-      text-align: left;
-    }
-
-    .step-number {
-      font-size: 48px;
-      font-weight: 700;
-      color: #5B7B65; /* アクセントカラー */
-      line-height: 1;
-      opacity: 0;
-      animation: slideUp 1s ease-out 1.5s forwards;
-    }
-
-    .step-title {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.2;
-      opacity: 0;
-      animation: slideUp 1s ease-out 1.8s forwards;
-    }
-
-    /* アニメーション定義 */
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-10deg); }
-      50% { transform: translateY(-10px) rotate(-8deg); }
-    }
-
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>経営から考える建築 | 建築家ネットワーク・ナビ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* モーダル用の追加スタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 58, 138, 0.6);
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: #F5F2ED;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+        .close-modal {
+            position: sticky;
+            top: 20px;
+            right: 20px;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 101;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        /* プロセスステップのホバー効果 */
+        .step-trigger {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .step-trigger:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.1);
+            background-color: #fff;
+        }
+    </style>
 </head>
-<body>
+<body class="noise-bg">
 
-  <div class="illustration-container">
-    <!-- 背景要素 -->
-    <div class="background-elements">
-      <div class="bento-shape shape-1"></div>
-      <div class="bento-shape shape-2"></div>
-      <svg class="organic-line line-1" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 50 Q 50 10, 100 50 T 190 50" />
-      </svg>
+    <header class="fixed w-full z-50 px-6 py-4">
+        <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
+            <div class="font-bold text-xl accent-text">建築家ネットワーク・ナビ</div>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-[#1e3a8a]">コンセプト</a>
+                <a href="#system" class="hover:text-[#1e3a8a]">5人のコンペ</a>
+                <a href="#branch" class="hover:text-[#1e3a8a]">目的別プラン</a>
+            </div>
+            <a href="#" class="btn-primary text-xs py-2 px-6">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <main class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Hero Section -->
+            <section class="mb-20 text-center reveal">
+                <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base md:text-lg font-bold mb-6 shadow-sm">店舗改装・事務所新築を検討中の経営者様へ</span>
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8">
+                    その建築を、<span class="accent-text">最高の投資</span>へ。<br>
+                    <span class="text-2xl md:text-4xl block mt-4 text-gray-700">設計コンペで<span class="accent-text">５人の建築家</span>が競い合う</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
+                    「安さ」を基準に知り合いの工務店へ依頼する。その判断が、<br class="hidden md:block">
+                    <span class="font-bold accent-text">ビジネスの可能性を狭めていませんか？</span><br>
+                    店舗や事務所の設計は、コストではなく、将来の利益を創出するための<span class="font-bold text-gray-800">「投資」</span>です。<br><br>
+                    設計コンペで提示される<span class="font-bold accent-text">5つの異なる戦略</span>に触れてください。<br class="hidden md:block">
+                    建築が<span class="font-bold accent-text">「経営の武器」</span>に変わる瞬間を目の当たりにしたとき、あなたの視界は大きく開けるはずです。
+                </p>
+                <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#branch" class="btn-primary">目的別の設計戦略を見る</a>
+                    <a href="#about" class="btn-primary border border-[#1e3a8a] bg-transparent text-[#1e3a8a]">選ばれる理由</a>
+                </div>
+            </section>
+
+            <!-- Problem Section -->
+            <section id="about" class="mb-24">
+                <h2 class="text-2xl font-bold mb-10 text-center text-gray-800">多くの経営者が直面する建築の<span class="accent-text">「落とし穴」</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bento-card md:col-span-2">
+                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl">⚠️</div>
+                        <h3 class="text-xl font-bold mb-4 accent-text">完成してから課題に気づく</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            店舗の動線が悪く回転率が上がらない、事務所が手狭で採用に響く。完成後の改修には<span class="font-bold text-gray-700">多額の追加コスト</span>がかかります。
+                        </p>
+                    </div>
+                    <div class="bento-card md:col-span-2">
+                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl">📉</div>
+                        <h3 class="text-xl font-bold mb-4 accent-text">成果につながらない「箱」</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            建物は綺麗になったが、採用応募が増えない、客足が伸びない。それは<span class="font-bold text-gray-700">「経営」が設計されていない</span>からです。
+                        </p>
+                    </div>
+                    <div class="bento-card md:col-span-4 lg:col-span-1 text-center md:text-left">
+                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl mx-auto md:mx-0">⛓️</div>
+                        <h3 class="text-xl font-bold mb-2">比較できない不安</h3>
+                        <p class="text-gray-500 text-xs">
+                            一社だけの提案で決めていいのか。<span class="font-bold">「事業の正解」</span>が他にあるのではないか、という疑念。
+                        </p>
+                    </div>
+                    <div class="bento-card md:col-span-4 lg:col-span-3 bg-accent text-white border-none shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">建物を作る前に、<span class="text-orange-200">収益モデルを空間化</span>する。</h3>
+                        <p class="opacity-90 leading-relaxed">
+                            私たちは、売上・採用・ブランド・拡張性を前提にした<span class="font-bold">“経営を設計する建築”</span>を創造します。それを<span class="underline decoration-2 underline-offset-4">「5人の比較」で確信に変えます</span>。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Section -->
+            <section id="system" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="accent-text">「5人の建築家」</span>なのか</h2>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            1人の設計士に、会社の未来を任せきりにできますか？<br>
+                            独立した5名の建築家が、あなたのビジネスに対する<span class="font-bold text-gray-800">「5つの異なる経営解」</span>を提示します。
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold">✓</span>
+                                <span class="font-medium text-gray-700">異なる視点から<span class="font-bold accent-text">「投資対効果」</span>を多角的に検証</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold">✓</span>
+                                <span class="font-medium text-gray-700">比較することで、最も<span class="font-bold accent-text">「勝てる」</span>案を確信する</span>
+                            </li>
+                        </ul>
+                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
+                            設計コンペの有効性を詳しく見る
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-4 text-center border border-gray-100 step-trigger" onclick="openModalAtStep(1)">
+                            <div class="text-3xl font-bold accent-text mb-1">01</div>
+                            <div class="text-xs font-bold text-gray-600">戦略を<br>ヒアリング</div>
+                        </div>
+                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-4 text-center border border-gray-100 step-trigger" onclick="openModalAtStep(2)">
+                            <div class="text-3xl font-bold accent-text mb-1">02</div>
+                            <div class="text-xs font-bold text-gray-600">5名を<br>厳選</div>
+                        </div>
+                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-4 text-center border border-gray-100 step-trigger" onclick="openModalAtStep(3)">
+                            <div class="text-3xl font-bold accent-text mb-1">03</div>
+                            <div class="text-[10px] font-bold text-gray-600 leading-tight">5つのプランを<br>直接提案</div>
+                        </div>
+                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-4 text-center border border-gray-100 step-trigger" onclick="openModalAtStep(4)">
+                            <div class="text-3xl font-bold accent-text mb-1">04</div>
+                            <div class="text-xs font-bold text-gray-600">最適案を<br>選択</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Branch Section -->
+            <section id="branch">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-800">解決したい<span class="accent-text">「経営課題」</span>はどれですか？</h2>
+                    <p class="text-gray-500">店舗改装・事務所新築。目的に合わせて専門プランをお選びください。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bento-card group">
+                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">👥</div>
+                        <h3 class="text-2xl font-bold mb-4 accent-text">採用に強いオフィス</h3>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">優秀な人材が「ここで働きたい」と確信する空間。離職率を下げ、採用コストを削減する戦略的新築・改装。</p>
+                        <a href="recruitment.html" class="btn-primary w-full">採用型モデルを見る</a>
+                    </div>
+                    <div class="bento-card group border-2 border-accent/20 shadow-md">
+                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">✨</div>
+                        <h3 class="text-2xl font-bold mb-4 accent-text">集客できる空間</h3>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">広告費に頼らず、空間そのものがファンを作る店舗設計。滞在時間、客単価、再来店率を科学する改装プラン。</p>
+                        <a href="sales.html" class="btn-primary w-full">集客型モデルを見る</a>
+                    </div>
+                    <div class="bento-card group">
+                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">🚀</div>
+                        <h3 class="text-2xl font-bold mb-4 accent-text">事業を拡大する拠点</h3>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">2号店、3号店と安定してスケールさせるための再現性。属人化を防ぎ、成長を加速させる拠点標準化モデル。</p>
+                        <a href="expansion.html" class="btn-primary w-full">拡大型モデルを見る</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for Detailed Process and Effectiveness -->
+    <div id="processModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="p-8 md:p-12">
+                <h2 class="text-3xl font-bold accent-text mb-6">「5人の建築家による設計コンペ」が<br class="hidden md:block">経営判断を最適化する理由</h2>
+                <p class="text-gray-600 mb-10 leading-relaxed border-b border-gray-200 pb-6">
+                    一社の提案を待つだけの建築は、経営上のリスクです。設計コンペは、複数の戦略をぶつけ合わせることで「最も勝てる投資」を確信に変えるための経営システムです。
+                </p>
+                
+                <div class="space-y-10">
+                    <!-- Effectiveness Intro -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">01. 思考のバイアスを排除</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">一人の設計士の「得意分野」や「固定概念」に縛られず、5通りの多角的なアプローチから最適な戦略を選べます。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">02. 投資対効果の最大化</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">「低コスト案」から「攻めのデザイン案」まで。経営者が求めるROI（投資回収率）に対して、最も効率の良いプランを比較検証できます。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">03. 確信ある意思決定</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">「他にもっと良い案があったのでは？」という後悔がありません。5案を比較し抜いた結論は、全社を納得させる確固たる経営判断になります。</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">コンペティションの流れ</h3>
+
+                    <!-- Step 01 -->
+                    <div id="step-detail-1" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <span class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">01</span>
+                            戦略をヒアリング（経営ビジョンの見える化）
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            私たちは「どんな建物が欲しいか」ではなく「どんなビジネスにしたいか」を伺います。専門のナビゲーターが経営者様に伴走し、採用、集客、生産性、将来の拡張性といった経営課題を抽出します。
+                        </p>
+                        <div class="p-4 bg-[#F5F2ED] rounded-2xl text-xs text-gray-500 italic">
+                            ヒアリング内容：5年後の組織図、離職率の現状、ターゲット客層、想定投資回収期間など
+                        </div>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div id="step-detail-2" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <span class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">02</span>
+                            5名を厳選（プロジェクトに最適な精鋭を選出）
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            全国の登録建築家の中から、貴社の業態やブランドに最も精通し、かつ「ビジネスとしての建築」を理解している5名を、実績と相性に基づいて厳選マッチングします。
+                        </p>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div id="step-detail-3" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <span class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">03</span>
+                            5つのプランを建築家から直接提案（戦略競演）
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            選ばれた建築家が現地を確認し、対面でプレゼンテーションを行います。図面だけでなく模型やパースを使い、「なぜこの設計が経営目標を達成できるのか」という戦略的根拠を直接ぶつけ合います。
+                        </p>
+                        <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 text-[11px] text-blue-800">
+                            <strong>【リアルコンペの価値】</strong> ネット上の公募とは違い、建築家が貴社の経営者と直接対話することで、表面的な要望を超えた「潜在的な課題」を解決するアイデアが生まれます。
+                        </div>
+                    </div>
+
+                    <!-- Step 04 -->
+                    <div id="step-detail-4" class="bg-white p-8 rounded-3xl border border-gray-100">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <span class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">04</span>
+                            経営者が最適案を選択（確信ある意思決定）
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            5通りの戦略的提案を比較し、最も納得感のあるパートナーを選択します。一社の提案を鵜呑みにするのではなく、最高の5案から選ぶ。このプロセスこそが、建築という高額投資を成功に導く最大の保証となります。
+                        </p>
+                    </div>
+
+                    <div class="text-center pb-8">
+                        <button onclick="closeProcessModal()" class="btn-primary">内容を理解して閉じる</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 人物イラスト（線画） -->
-    <div class="person-illustration">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <!-- 左側の人物（ヒアリングする側） -->
-        <g class="person-left">
-          <circle cx="60" cy="70" r="20" /> <!-- 頭 -->
-          <path d="M40 100 Q 60 130, 80 100 L 80 180 L 40 180 Z" /> <!-- 体 -->
-          <path d="M30 130 L 50 150 L 70 130" /> <!-- 腕 -->
-          <!-- メモ帳 -->
-          <rect x="80" y="120" width="30" height="40" fill="#fff" stroke="#333" stroke-width="1" transform="rotate(-10 95 140)"/>
-          <line x1="85" y1="130" x2="105" y2="130" stroke="#333" stroke-width="1" transform="rotate(-10 95 140)"/>
-          <line x1="85" y1="140" x2="105" y2="140" stroke="#333" stroke-width="1" transform="rotate(-10 95 140)"/>
-        </g>
-        <!-- 右側の人物（話す側） -->
-        <g class="person-right">
-          <circle cx="140" cy="80" r="25" /> <!-- 頭 -->
-          <path d="M115 115 Q 140 145, 165 115 L 165 190 L 115 190 Z" /> <!-- 体 -->
-          <path d="M110 140 L 140 120 L 170 140" /> <!-- 腕 -->
-          <!-- 吹き出し -->
-          <path d="M160 60 Q 180 40, 190 60 T 180 90 L 160 80 Z" fill="#fff" stroke="#333" stroke-width="1"/>
-          <circle cx="175" cy="65" r="2" fill="#333" stroke="none"/>
-          <circle cx="182" cy="65" r="2" fill="#333" stroke="none"/>
-          <circle cx="179" cy="72" r="2" fill="#333" stroke="none"/>
-        </g>
-      </svg>
-    </div>
+    <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
+        <div class="max-w-7xl mx-auto">
+            <div class="font-bold text-xl accent-text mb-4">建築家ネットワーク・ナビ</div>
+            <p class="text-xs text-gray-400">© 2024 Architect Network Navi. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    <!-- テキスト -->
-    <div class="text-content">
-      <div class="step-number">01</div>
-      <div class="step-title">戦略を<br>ヒアリング</div>
-    </div>
-  </div>
+    <script>
+        // Modal logic
+        const modal = document.getElementById("processModal");
+        const btn = document.getElementById("openProcess");
+        const span = document.getElementsByClassName("close-modal")[0];
 
+        btn.onclick = function() { openModalAtStep(0); }
+        span.onclick = function() { closeProcessModal(); }
+        window.onclick = function(event) { if (event.target == modal) { closeProcessModal(); } }
+
+        function openModalAtStep(stepNumber) {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            
+            if (stepNumber > 0) {
+                setTimeout(() => {
+                    const target = document.getElementById(`step-detail-${stepNumber}`);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 50);
+            } else {
+                modal.querySelector('.modal-content').scrollTop = 0;
+            }
+        }
+
+        function closeProcessModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Observer for reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
+    </script>
 </body>
 </html>
