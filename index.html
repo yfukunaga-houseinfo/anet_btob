@@ -123,7 +123,10 @@
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <div class="font-bold text-xl accent-text text-[#1e3a8a]">建築家ネットワーク・ナビ</div>
+            <!-- Header Logo with entity update -->
+            <div class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a]">
+                <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
+            </div>
             <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#about" class="hover:text-[#1e3a8a]">コンセプト</a>
                 <a href="#system" class="hover:text-[#1e3a8a]">5人のコンペ</a>
@@ -215,9 +218,8 @@
                         </button>
                     </div>
 
-                    <!-- Steps Grid: 文字サイズとイラストを完全に統一 -->
+                    <!-- Steps Grid -->
                     <div class="grid grid-cols-2 gap-4">
-                        <!-- Step 01: Strategic Hearing -->
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
                             <div class="step-illustration">
                                 <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
@@ -235,7 +237,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 02: Selection -->
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(2)">
                             <div class="step-illustration">
                                 <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
@@ -255,7 +256,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 03: Direct Proposal -->
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(3)">
                             <div class="step-illustration">
                                 <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
@@ -272,7 +272,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 04: Optimal Choice -->
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(4)">
                             <div class="step-illustration">
                                 <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
@@ -395,9 +394,17 @@
         </div>
     </div>
 
+    <!-- Footer with updated Links and Entity -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
-        <div class="max-w-7xl mx-auto">
-            <div class="font-bold text-xl accent-text mb-4 text-[#1e3a8a]">建築家ネットワーク・ナビ</div>
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
+                <a href="http://a-netnavi.jp/" target="_blank" class="hover:opacity-80 transition-opacity">
+                    <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
+                </a>
+            </div>
+            <div class="mb-6">
+                <a href="http://a-netnavi.jp/company/" target="_blank" class="text-xs text-gray-500 hover:text-[#1e3a8a] hover:underline transition-all">会社概要</a>
+            </div>
             <p class="text-xs text-gray-400">© 2024 Architect Network Navi. All Rights Reserved.</p>
         </div>
     </footer>
