@@ -26,7 +26,7 @@
             padding: 0;
             border-radius: 40px;
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -154,7 +154,7 @@
                             </li>
                         </ul>
                         <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
-                            設計コンペの仕組みを詳しく見る
+                            設計コンペの有効性を詳しく見る
                         </button>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -208,14 +208,35 @@
         </div>
     </main>
 
-    <!-- Modal for Detailed Process -->
+    <!-- Modal for Detailed Process and Effectiveness -->
     <div id="processModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <div class="p-8 md:p-12">
-                <h2 class="text-3xl font-bold accent-text mb-8 text-center md:text-left">設計コンペ 4ステップの詳細</h2>
+                <h2 class="text-3xl font-bold accent-text mb-6">「5人の建築家による設計コンペ」が<br class="hidden md:block">経営判断を最適化する理由</h2>
+                <p class="text-gray-600 mb-10 leading-relaxed border-b border-gray-200 pb-6">
+                    一社の提案を待つだけの建築は、経営上のリスクです。設計コンペは、複数の戦略をぶつけ合わせることで「最も勝てる投資」を確信に変えるための経営システムです。
+                </p>
                 
-                <div class="space-y-8">
+                <div class="space-y-10">
+                    <!-- Effectiveness Intro -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">01. 思考のバイアスを排除</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">一人の設計士の「得意分野」や「固定概念」に縛られず、5通りの多角的なアプローチから最適な戦略を選べます。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">02. 投資対効果の最大化</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">「低コスト案」から「攻めのデザイン案」まで。経営者が求めるROI（投資回収率）に対して、最も効率の良いプランを比較検証できます。</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold accent-text mb-3">03. 確信ある意思決定</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">「他にもっと良い案があったのでは？」という後悔がありません。5案を比較し抜いた結論は、全社を納得させる確固たる経営判断になります。</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">コンペティションの流れ</h3>
+
                     <!-- Step 01 -->
                     <div id="step-detail-1" class="bg-white p-8 rounded-3xl border border-gray-100">
                         <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
@@ -236,11 +257,8 @@
                             <span class="bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">02</span>
                             5名を厳選（プロジェクトに最適な精鋭を選出）
                         </h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                            建築家ネットワーク・ナビに登録された多数の建築家の中から、今回のプロジェクトの特性（業態、予算、立地、ブランドの方向性）に最もマッチする5名を選定します。
-                        </p>
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            単なるデザイン力だけでなく、ビジネス視点での提案力や実績、経営者様との相性を考慮した「最強の5名」をマッチングします。
+                            全国の登録建築家の中から、貴社の業態やブランドに最も精通し、かつ「ビジネスとしての建築」を理解している5名を、実績と相性に基づいて厳選マッチングします。
                         </p>
                     </div>
 
@@ -251,17 +269,10 @@
                             5つのプランを建築家から直接提案（戦略競演）
                         </h3>
                         <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                            選ばれた5人の建築家が、実際に現地を確認した上で、個別にプレゼンテーションを行います。図面だけでなく、パースや模型を用いて「なぜこの設計が経営課題を解決するのか」という戦略的根拠を直接説明します。
+                            選ばれた建築家が現地を確認し、対面でプレゼンテーションを行います。図面だけでなく模型やパースを使い、「なぜこの設計が経営目標を達成できるのか」という戦略的根拠を直接ぶつけ合います。
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 text-[11px] text-blue-800">
-                                <strong>【投資判断の材料が揃う】</strong><br>
-                                5通りの異なるアプローチを比較することで、自分たちでは気づかなかった「攻めの設計」や「コスト削減の工夫」が浮き彫りになります。
-                            </div>
-                            <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 text-[11px] text-blue-800">
-                                <strong>【対面での信頼確認】</strong><br>
-                                ビジネスパートナーとしてふさわしいか、対話を通じて建築家の人柄や熱意を直接確かめることができます。
-                            </div>
+                        <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 text-[11px] text-blue-800">
+                            <strong>【リアルコンペの価値】</strong> ネット上の公募とは違い、建築家が貴社の経営者と直接対話することで、表面的な要望を超えた「潜在的な課題」を解決するアイデアが生まれます。
                         </div>
                     </div>
 
@@ -272,15 +283,12 @@
                             経営者が最適案を選択（確信ある意思決定）
                         </h3>
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            5通りの提案を比較検討し、最も「勝てる」と感じた案、最も「投資対効果が高い」と判断した案を経営者様ご自身が選択します。
-                        </p>
-                        <p class="text-gray-600 text-sm leading-relaxed mt-2">
-                            一社の提案を鵜呑みにするのではなく、複数の正解を比較した上で決断するため、「本当にこれで良かったのか」という後悔がありません。経営合理性に基づいた、確信ある一歩を踏み出せます。
+                            5通りの戦略的提案を比較し、最も納得感のあるパートナーを選択します。一社の提案を鵜呑みにするのではなく、最高の5案から選ぶ。このプロセスこそが、建築という高額投資を成功に導く最大の保証となります。
                         </p>
                     </div>
 
                     <div class="text-center pb-8">
-                        <button onclick="closeProcessModal()" class="btn-primary">詳細を閉じる</button>
+                        <button onclick="closeProcessModal()" class="btn-primary">内容を理解して閉じる</button>
                     </div>
                 </div>
             </div>
@@ -300,17 +308,23 @@
         const btn = document.getElementById("openProcess");
         const span = document.getElementsByClassName("close-modal")[0];
 
-        btn.onclick = function() { openModalAtStep(1); }
+        btn.onclick = function() { openModalAtStep(0); }
         span.onclick = function() { closeProcessModal(); }
         window.onclick = function(event) { if (event.target == modal) { closeProcessModal(); } }
 
         function openModalAtStep(stepNumber) {
             modal.style.display = "block";
             document.body.style.overflow = "hidden";
-            // 指定したステップまでスクロール（簡易版）
-            const target = document.getElementById(`step-detail-${stepNumber}`);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            if (stepNumber > 0) {
+                setTimeout(() => {
+                    const target = document.getElementById(`step-detail-${stepNumber}`);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 50);
+            } else {
+                modal.querySelector('.modal-content').scrollTop = 0;
             }
         }
 
