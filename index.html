@@ -112,6 +112,35 @@
             color: #4b5563; /* text-gray-600 */
         }
 
+        /* カード背景画像の設定 */
+        .bento-card-bg {
+            position: relative;
+            z-index: 1;
+            background-color: white;
+            overflow: hidden;
+        }
+        .bento-card-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12; /* 半透明の度合い */
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        .bento-card-bg:hover::before {
+            opacity: 0.2; /* ホバー時に少し濃くする演出 */
+        }
+
+        /* 各目的別の背景画像指定 */
+        .bg-recruitment::before { background-image: url('images/S-takemoto_101.jpg'); }
+        .bg-sales::before { background-image: url('images/h04607.jpg'); }
+        .bg-expansion::before { background-image: url('images/39601.jpg'); }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -123,7 +152,6 @@
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <!-- Header Logo with entity update -->
             <div class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a]">
                 <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
             </div>
@@ -142,8 +170,8 @@
             <!-- Hero Section -->
             <section class="mb-20 text-center reveal">
                 <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base md:text-lg font-bold mb-6 shadow-sm">店舗改装・事務所新築を検討中の経営者様へ</span>
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8">
-                    その建築を、<span class="accent-text text-[#1e3a8a]">最高の投資</span>へ。<br>
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8 text-gray-800">
+                    その建築を、<span class="accent-text">最高の投資</span>へ。<br>
                     <span class="text-2xl md:text-4xl block mt-4 text-gray-700">設計コンペで<span class="text-[#1e3a8a]">５人の建築家</span>が競い合う</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
@@ -298,7 +326,7 @@
                     <div class="lg:col-span-8">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6">コンペが生み出した設計実例</h2>
                         <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
-                            これまで私たちは住宅建築を中心に数千件の設計コンペを開催し、唯一無二の価値を形にしてきました。<br>
+                            これまで私たちは住宅建築を中心に数百件の設計コンペを開催し、唯一無二の価値を形にしてきました。<br>
                             正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
                             しかし、一軒一軒の「理想の暮らし」を極限まで突き詰め、建築家同士が熾烈な知恵を競い合ってきた住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
                         </p>
@@ -321,22 +349,22 @@
                     <p class="text-gray-500">店舗改装・事務所新築。目的に合わせて専門プランをお選びください。</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bento-card group">
+                    <div class="bento-card bento-card-bg bg-recruitment group">
                         <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">👥</div>
                         <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">採用に強いオフィス</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">優秀な人材が「ここで働きたい」と確信する空間。離職率を下げ、採用コストを削減する戦略的新築・改装。</p>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">優秀な人材が「ここで働きたい」と確信する空間. 離職率を下げ、採用コストを削減する戦略的新築・改装。</p>
                         <a href="recruitment.html" class="btn-primary w-full text-center justify-center">採用型モデルを見る</a>
                     </div>
-                    <div class="bento-card group border-2 border-accent/20 shadow-md">
+                    <div class="bento-card bento-card-bg bg-sales group border-2 border-[#1e3a8a]/20 shadow-md">
                         <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">✨</div>
                         <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">集客できる空間</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">広告費に頼らず、空間そのものがファンを作る店舗設計。滞在時間、客単価、再来店率を科学する改装プラン。</p>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">広告費に頼らず、空間そのものがファンを作る店舗設計. 滞在時間、客単価、再来店率を科学する改装プラン。</p>
                         <a href="sales.html" class="btn-primary w-full text-center justify-center">集客型モデルを見る</a>
                     </div>
-                    <div class="bento-card group">
+                    <div class="bento-card bento-card-bg bg-expansion group">
                         <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">🚀</div>
                         <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">事業を拡大する拠点</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">2号店、3号店と安定してスケールさせるための再現性。属人化を防ぎ、成長を加速させる拠点標準化モデル。</p>
+                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">2号店、3号店と安定してスケールさせるための再現性. 属人化を防ぎ、成長を加速させる拠点標準化モデル。</p>
                         <a href="expansion.html" class="btn-primary w-full text-center justify-center">拡大型モデルを見る</a>
                     </div>
                 </div>
@@ -379,31 +407,31 @@
                     </div>
                     <div id="step-detail-3" class="bg-white p-8 rounded-3xl border border-gray-100 mb-6">
                         <h4 class="text-[#1e3a8a] font-bold mb-4">03 5つのプランを直接提案</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">建築家が現地を確認し、対面でプレゼン。図面と模型、そして「経営課題をどう解決するか」の根拠を直接ぶつけ合います。</p>
+                        <p class="text-sm text-gray-600 leading-relaxed">建築家が現地を確認し、対面でプレゼン. 図面と模型、そして「経営課題をどう解決するか」の根拠を直接ぶつけ合います。</p>
                     </div>
                     <div id="step-detail-4" class="bg-white p-8 rounded-3xl border border-gray-100 mb-6">
                         <h4 class="text-[#1e3a8a] font-bold mb-4">04 最適案を選択</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">5つの正解を比較検討。一社だけの提案を鵜呑みにせず、経営合理性に基づいて確信ある一歩を踏み出せます。</p>
+                        <p class="text-sm text-gray-600 leading-relaxed">5つの正解を比較検討. 一社だけの提案を鵜呑みにせず、経営合理性に基づいて確信ある一歩を踏み出せます。</p>
                     </div>
 
                     <div class="text-center pb-8">
-                        <button onclick="closeProcessModal()" class="btn-primary">内容を理解して閉じる</button>
+                        <button onclick="closeProcessModal()" class="btn-primary">閉じる</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer with updated Links and Entity -->
+    <!-- フッター -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
                 <a href="http://a-netnavi.jp/" target="_blank" class="hover:opacity-80 transition-opacity">
-                    <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
+                    <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ<span class="text-xs md:text-sm font-medium ml-2 border-l border-gray-300 pl-2">公式サイト</span>
                 </a>
             </div>
             <div class="mb-6">
-                <a href="http://a-netnavi.jp/company/" target="_blank" class="text-xs text-gray-500 hover:text-[#1e3a8a] hover:underline transition-all">会社概要</a>
+                <a href="http://a-netnavi.jp/company/" target="_blank" class="text-xs text-gray-500 hover:text-[#1e3a8a] transition-all">会社概要</a>
             </div>
             <p class="text-xs text-gray-400">© 2024 Architect Network Navi. All Rights Reserved.</p>
         </div>
