@@ -7,103 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* モーダル・インタラクション用の追加スタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(30, 58, 138, 0.6);
-            backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background-color: #F5F2ED;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 40px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            position: relative;
-        }
-        .close-modal {
-            position: sticky;
-            top: 20px;
-            right: 20px;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 101;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .step-trigger, .insight-trigger {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            overflow: hidden;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border: 1px solid rgba(30, 58, 138, 0.05);
-        }
-        .step-trigger { aspect-ratio: 1 / 1; }
-        .step-trigger:hover, .insight-trigger:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
-            background-color: #f0f7ff;
-        }
-        .step-illustration {
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
-            width: 85%;
-            height: 85%;
-            opacity: 0.15;
-            transition: all 0.6s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .step-text-wrapper {
-            position: relative;
-            z-index: 1;
-            padding: 1.75rem;
-            width: 100%;
-        }
-        .step-num {
-            font-size: 1.875rem;
-            line-height: 2.25rem;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 0.25rem;
-        }
-        .step-label {
-            font-size: 0.875rem;
-            line-height: 1.4;
-            font-weight: 700;
-            color: #4b5563;
-        }
-        html { scroll-behavior: smooth; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .reveal { animation: fadeIn 1s ease forwards; }
-    </style>
 </head>
 <body class="noise-bg" id="page-top">
 
@@ -131,43 +34,57 @@
                         集客できない原因は、立地や広告ではなく<br><span class="text-[#1e3a8a]">“空間設計”</span>かもしれません。
                     </h1>
                     <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-                        集客とは「また来たい」と思わせる仕組み作りです. 広告費をかけ続ける前に、最高の「集客の受け皿」を. 5人の建築家が滞在時間、客単価、リピート率を最大化させる戦略を競い合います。
+                        集客とは、ただ人を呼ぶことではなく「また来たい」と思わせる仕組み作りです。<br>
+                        広告費をかけ続ける前に、最高の「集客の受け皿」を。 5人の建築家が、滞在時間、客単価、リピート率を最大化させる戦略を競い合います。
                     </p>
                 </div>
             </section>
 
             <section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24">
                 <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none shadow-xl flex flex-col">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-6">お客様が離れていく“本当の理由”</h2>
-                    <p class="text-lg opacity-90 mb-8 leading-relaxed">広告やSNSはきっかけに過ぎません. きっかけを作っても、店内の体験が不快であれば、二度目の来店はありません。</p>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-tight">お客様が離れていく“本当の理由”</h2>
+                    <p class="text-lg opacity-90 mb-8 leading-relaxed">
+                        広告やSNSは、今の時代、お客様に「見つけてもらうためのきっかけ」に過ぎません。きっかけを作っても、店内の体験が不快であれば、二度目の来店はありません。
+                    </p>
                     <div class="grid grid-cols-2 gap-4 mt-auto">
                         <div class="insight-trigger bg-white/10 p-4 rounded-2xl border border-white/20 hover:bg-white/30 transition-all text-left" onclick="openInsightModal('soft')">
-                            <div class="text-xs uppercase opacity-70">Promotion</div>
+                            <div class="text-xs font-bold mb-1 opacity-70 uppercase">Promotion</div>
                             <div class="text-sm font-bold text-blue-200">きっかけの投資 ＞</div>
                         </div>
                         <div class="insight-trigger bg-white/20 p-4 rounded-2xl border border-white/40 shadow-sm hover:bg-white/40 transition-all text-left" onclick="openInsightModal('hard')">
-                            <div class="text-xs uppercase text-blue-100">Experience</div>
+                            <div class="text-xs font-bold mb-1 uppercase text-blue-100">Experience</div>
                             <div class="text-sm font-bold">リピートを生む投資 ＞</div>
                         </div>
                     </div>
                 </div>
+
                 <div class="bento-card md:col-span-5 bg-white">
-                    <h3 class="text-xl font-bold mb-6 italic text-gray-800">陥りがちな失敗パターン</h3>
+                    <h3 class="text-xl font-bold mb-6 text-gray-800 italic">陥りがちな失敗パターン</h3>
                     <ul class="space-y-6 text-sm text-gray-500">
-                        <li class="flex gap-4"><span class="text-[#1e3a8a] font-bold text-xl">×</span>「バケツに穴が空いたまま」広告を打っている。</li>
-                        <li class="flex gap-4"><span class="text-[#1e3a8a] font-bold text-xl">×</span>内装の見映えだけで、動線が考慮されていない。</li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>「バケツに穴が空いたまま」広告で無理やり集客している。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>内装の「見映え」だけにこだわり、オペレーション効率が悪い。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>ターゲット客層の「無意識のストレス」を見落としている。</div>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- KARUBE TREE×TREE -->
+                <!-- 成功事例セクション (KARUBE TREE×TREE) -->
                 <div id="success-case" class="bento-card md:col-span-12 scroll-mt-24">
                     <div class="flex flex-col lg:flex-row gap-10">
                         <div class="lg:w-2/5">
                             <div class="case-study-tag">成功事例：KARUBE TREE×TREE (事務所+カフェ)</div>
                             <h3 class="text-2xl font-bold mb-6 text-[#1e3a8a]">建築が「地域のランドマーク」となり、自走する集客を実現する。</h3>
-                            <div class="text-gray-600 text-sm md:text-base space-y-4 mb-8">
-                                <p>駐車場からでも一目で認識できる大屋根が、車社会における店舗の視認性を劇的に高めています。</p>
-                                <p>樹木の枝を思わせる「方杖（ほうづえ）」のデザインが「樹木の下に人が集う」ブランド体験を創出。兵庫県産の杉や桧、最新技術「Tajima TAPOS」を組み合わせ、地域に愛され続ける拠点となりました。</p>
+                            <div class="text-gray-600 leading-relaxed text-sm md:text-base space-y-4 mb-8">
+                                <p>郊外のショッピングモールの一角。駐車場からでも一目で認識できる「四周に1.7m張り出した一枚板のような大屋根」が、車社会における店舗の視認性を劇的に高めています。</p>
+                                <p>樹木の枝を思わせる「方杖（ほうづえ）」のデザインは、積雪対策という機能性を超え、「樹木の下に人が集う」というブランド体験を創出。兵庫県産の杉や桧、最新技術「Tajima TAPOS」を組み合わせ、地域に愛され続ける拠点となりました。</p>
                             </div>
                             <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-6">
                                 <div class="grid grid-cols-2 gap-y-3 text-xs">
@@ -176,12 +93,21 @@
                                     <div class="text-gray-400">所在地</div><div class="font-bold text-gray-700">兵庫県養父市上箇</div>
                                 </div>
                             </div>
-                            <a href="http://houseinfo.jp/works/detail.php?b_id=162&year=2015" target="_blank" class="text-[#1e3a8a] font-bold text-xs hover:underline">事例の詳細を公式で確認する →</a>
+                            <a href="http://houseinfo.jp/works/detail.php?b_id=162&year=2015" target="_blank" class="text-[#1e3a8a] text-xs font-bold hover:underline">事例の詳細を公式で確認する →</a>
                         </div>
                         <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100 relative group"><img src="images/h04607.jpg" alt="夜景外観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
-                            <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/h04614.jpg" alt="内観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
-                            <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/h04604.jpg" alt="構造美" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                            <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100 relative group">
+                                <img src="images/h04607.jpg" alt="KARUBE TREE×TREE 夜景外観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">暗闇に浮かび上がる「光の箱」が顧客を誘う</div>
+                            </div>
+                            <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group">
+                                <img src="images/h04614.jpg" alt="KARUBE TREE×TREE 内観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">駐車場と地続きの開放的なカフェスペース</div>
+                            </div>
+                            <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group">
+                                <img src="images/h04604.jpg" alt="KARUBE TREE×TREE 構造美" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">樹木の枝のような方杖が包む安心感</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,9 +118,15 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
                     <div>
                         <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="text-[#1e3a8a]">「5人の建築家」による<br>設計コンペ</span>なのか</h2>
-                        <p class="text-gray-600 mb-8 leading-relaxed">一人の設計士に任せきりにせず、5人のプロが異なる戦略をぶつけ合うことで、御社の「勝ちパターン」を導き出します。</p>
-                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">設計コンペの有効性を詳しく見る</button>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            「どうすれば売れる空間になるか」に、唯一の正解はありません。<br>
+                            回転率を上げる動線か、客単価を高める雰囲気か。一人の設計士に任せきるのではなく、5人のプロが異なる経営戦略をぶつけ合う<span class="font-bold text-[#1e3a8a]">『設計コンペ』</span>だからこそ、御社の勝ちパターンが明確に見えてくるのです。
+                        </p>
+                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
+                            設計コンペの有効性を詳しく見る
+                        </button>
                     </div>
+
                     <div class="grid grid-cols-2 gap-4">
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
                             <div class="step-illustration">
@@ -246,16 +178,50 @@
             </section>
 
             <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center text-center lg:text-left">
                     <div class="lg:col-span-8">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">数百件のコンペが証明する「最適解」への道筋</h2>
-                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">私たちはこれまで数百件の設計コンペを開催してきました。競争原理こそが、ビジネスに求められる「高コストパフォーマンス」と「確実な成果」を生む土台となります。</p>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
+                            住宅建築の現場では、常に「限られた予算で最大限の満足」を競ってきました。そのシビアな競争原理こそが、ビジネスに求められる「高コストパフォーマンス」と「確実な成果」を生む土台となります。
+                        </p>
                     </div>
-                    <div class="lg:col-span-4 text-center lg:text-right"><a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-12">実例集を見る</a></div>
+                    <div class="lg:col-span-4 text-center">
+                        <a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-12">実例集を見る</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="text-center bg-[#F5F2ED] p-16 rounded-[48px] border-2 border-dashed border-[#1e3a8a]/20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-[#1e3a8a]">空間が、あなたの店舗の最強の武器になる。</h2>
+                <p class="mb-12 text-gray-600 max-w-2xl mx-auto text-sm md:text-base">まずは出店計画や改装の悩みをお聞かせください。<br>空間が、御社の最強の集客エンジンに変わるプロセスをご案内します。</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#" class="btn-primary px-12">集客戦略×設計 無料相談</a>
                 </div>
             </section>
         </div>
     </main>
+
+    <div id="insightModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeInsightModal()">&times;</span>
+            <div class="p-8 md:p-12" id="insightContent"></div>
+        </div>
+    </div>
+
+    <div id="processModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProcessModal()">&times;</span>
+            <div class="p-8 md:p-12">
+                <h2 class="text-2xl font-bold mb-6 text-[#1e3a8a]">設計コンペのプロセス</h2>
+                <div id="step-detail-1" class="bg-white p-6 rounded-2xl mb-4"><h4>01 戦略をヒアリング</h4><p class="text-sm">経営課題と売上目標を整理し資料化します。</p></div>
+                <div id="step-detail-2" class="bg-white p-6 rounded-2xl mb-4"><h4>02 5名を厳選</h4><p class="text-sm">商業設計に強い5名をマッチングします。</p></div>
+                <div id="step-detail-3" class="bg-white p-6 rounded-2xl mb-4"><h4>03 5つの提案</h4><p class="text-sm">建築家が集客の根拠を直接プレゼンします。</p></div>
+                <div id="step-detail-4" class="bg-white p-6 rounded-2xl mb-4"><h4>04 最適案を選択</h4><p class="text-sm">経営合理性に基づいて確信ある一歩を踏み出せます。</p></div>
+                <div class="text-center mt-10"><button onclick="closeProcessModal()" class="btn-primary">閉じる</button></div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
@@ -269,28 +235,19 @@
         </div>
     </footer>
 
-    <div id="insightModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeInsightModal()">&times;</span><div class="p-8 md:p-12" id="insightContent"></div></div></div>
-    <div id="processModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeProcessModal()">&times;</span><div class="p-8 md:p-12">
-        <h2 class="text-2xl font-bold mb-6 text-[#1e3a8a]">設計コンペの有効性とプロセス</h2>
-        <div id="step-detail-1" class="bg-white p-6 rounded-2xl mb-4"><h4>01 戦略をヒアリング</h4><p class="text-sm">経営課題と売上目標を整理し共有資料を作成します。</p></div>
-        <div id="step-detail-2" class="bg-white p-6 rounded-2xl mb-4"><h4>02 5名を厳選</h4><p class="text-sm">商業設計に強い5名をマッチングします。</p></div>
-        <div id="step-detail-3" class="bg-white p-6 rounded-2xl mb-4"><h4>03 5つの提案</h4><p class="text-sm">建築家が集客の根拠を直接ぶつけ合い、比較検証します。</p></div>
-        <div id="step-detail-4" class="bg-white p-6 rounded-2xl mb-4"><h4>04 最適案を選択</h4><p class="text-sm">経営合理性に基づいて確信ある一歩を踏み出せます。</p></div>
-        <div class="text-center mt-10"><button onclick="closeProcessModal()" class="btn-primary">閉じる</button></div>
-    </div></div></div>
-
     <script>
         const insightModal = document.getElementById("insightModal");
         const processModal = document.getElementById("processModal");
         const insights = {
-            soft: { title: "広告（Promotion）はきっかけ", body: `<p class="text-gray-600 mb-6">きっかけは広告で作れますが、ファンを作るのは中身です。</p><div class="p-6 bg-blue-50 rounded-2xl border border-blue-100"><h4 class="font-bold text-[#1e3a8a] mb-2">きっかけだけに頼るリスク</h4><p class="text-sm text-blue-700">広告を打ち続けなければ客が来ない状態は経営リスクです。利益を削り続ける競争から脱却しましょう。</p></div>` },
-            hard: { title: "体験（Experience）は安定の投資", body: `<p class="text-gray-600 mb-6">居心地の良さはリピート率を変える最強の装置になります。</p><div class="p-6 bg-[#1e3a8a] text-white rounded-2xl"><h4 class="font-bold mb-2">空間が最強の営業マンになる</h4><p class="text-sm opacity-80">「誰かに教えたくなる」空間は自ずとSNSでシェアされます。建築をコストではなく投資と捉える最大のメリットです。</p></div>` }
+            soft: { title: "広告（Promotion）は「出会いのきっかけ」", body: `<p class="text-gray-600 leading-relaxed mb-6">SNSやWeb広告は、お客様に店を知ってもらうための入り口です。ファンを作るのは空間体験です。</p><div class="p-6 bg-blue-50 rounded-2xl border border-blue-100"><h4 class="font-bold text-[#1e3a8a] mb-2">「きっかけ」だけに頼る怖さ</h4><p class="text-sm text-blue-700 leading-relaxed">広告費を出し続けなければ客足が途絶える状態は経営リスクです。利益を削り続ける競争から脱却しましょう。</p></div>` },
+            hard: { title: "体験（Experience）は「経営の安定」を支える投資", body: `<p class="text-gray-600 leading-relaxed mb-6">どんな空間でお客様を迎えるかは、その店の誠実さを無言で語ります。居心地の良さはリピート率を変える最強の装置になります。</p><div class="p-6 bg-[#1e3a8a] text-white rounded-2xl"><h4 class="font-bold mb-2">「この場所」が最高の営業マンになる</h4><p class="text-sm opacity-80 leading-relaxed">「誰かに教えたくなる」空間は自ずとSNSでシェアされます。建築をコストではなく投資と捉える最大のメリットです。</p></div>` }
         };
         function openInsightModal(type) { const d = insights[type]; document.getElementById("insightContent").innerHTML = `<h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#1e3a8a]">${d.title}</h2><div class="insight-body">${d.body}</div><div class="text-center mt-10"><button onclick="closeInsightModal()" class="btn-primary">閉じる</button></div>`; insightModal.style.display = "block"; document.body.style.overflow = "hidden"; }
         function closeInsightModal() { insightModal.style.display = "none"; document.body.style.overflow = "auto"; }
         function openModalAtStep(n) { processModal.style.display = "block"; document.body.style.overflow = "hidden"; if(n>0){ setTimeout(() => { document.getElementById(`step-detail-${n}`).scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100); } }
         function closeProcessModal() { processModal.style.display = "none"; document.body.style.overflow = "auto"; }
-        document.querySelector('#openProcess').onclick = () => openModalAtStep(0);
+        const openProcessBtn = document.querySelector('#openProcess');
+        if(openProcessBtn) openProcessBtn.onclick = () => openModalAtStep(0);
         window.onclick = (e) => { if(e.target==insightModal) closeInsightModal(); if(e.target==processModal) closeProcessModal(); };
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); }); }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
