@@ -34,19 +34,58 @@
                 </div>
             </section>
 
-            <section id="success-case" class="bento-card md:col-span-12 scroll-mt-24 mb-24">
-                <div class="flex flex-col lg:flex-row gap-10">
-                    <div class="lg:w-2/5">
-                        <div class="case-study-tag">成功事例：三島屋本店（自社ブランド確立）</div>
-                        <h3 class="text-2xl font-bold mb-6 text-[#1e3a8a]">事業の「らしさ」を空間化し、唯一無二の価値を確立。</h3>
-                        <p class="text-gray-600 text-sm mb-8 leading-relaxed">
-                            地域の名産をつくる老舗の和菓子屋さん。新店舗出店にあたり、単なる「店づくり」ではなく、自社ブランドの確立するための「ブランドの再定義」が求められました。5人の建築家が「伝統と洗練の共生」をテーマに競い合い、この洗練された空間そのものが広報メディアとなり、事業拡大の確かな土台となるように計画しました。
-                        </p>
+            <!-- 課題と気づきのグリッド（余白調整済み） -->
+            <section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24 items-start">
+                <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none shadow-xl">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-tight">埋もれないための“ブランド・コア”の確立</h2>
+                    <p class="text-lg opacity-90 mb-8 leading-relaxed">
+                        類似サービスが溢れる現代において、「どこでもいい」から「ここがいい」へ。空間を通じてブランドの思想を伝えることで、顧客の信頼を勝ち取り、長期的な事業の安定を実現します。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="insight-trigger bg-white/10 py-3 px-4 rounded-2xl border border-white/20 hover:bg-white/30 transition-all text-left" onclick="openInsightModal('soft')">
+                            <div class="text-xs font-bold mb-1 opacity-70 uppercase">Management</div>
+                            <div class="text-sm font-bold text-blue-200">ブランド定義の条件 ＞</div>
+                        </div>
+                        <div class="insight-trigger bg-white/20 py-3 px-4 rounded-2xl border border-white/40 shadow-sm hover:bg-white/40 transition-all text-left" onclick="openInsightModal('hard')">
+                            <div class="text-xs font-bold mb-1 uppercase text-blue-100">Infrastructure</div>
+                            <div class="text-sm font-bold">ブランドを加速させる投資 ＞</div>
+                        </div>
                     </div>
-                    <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100 relative group"><img src="images/39601.jpg" alt="正面" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/39603.jpg" alt="詳細" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                </div>
+
+                <div class="bento-card md:col-span-5 bg-white">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800 italic">ブランド確立の壁</h3>
+                    <ul class="space-y-6 text-sm text-gray-500">
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>経営の想いが空間に反映されず、ありふれた店舗になっている。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>ブランドイメージが一貫しておらず、顧客の記憶に残らない。</div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-[#1e3a8a] font-bold text-xl">×</span> 
+                            <div>表層のデザインに終始し、ブランドの「核」が表現できていない。</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 成功事例セクション -->
+                <div id="success-case" class="bento-card md:col-span-12 scroll-mt-24">
+                    <div class="flex flex-col lg:flex-row gap-8 items-center">
+                        <div class="lg:w-[28%]">
+                            <div class="case-study-tag">成功事例：三島屋本店（自社ブランド確立）</div>
+                            <h3 class="text-2xl font-bold mb-6 text-[#1e3a8a]">事業の「らしさ」を空間化し、唯一無二の価値を確立。</h3>
+                            <p class="text-gray-600 text-sm mb-8 leading-relaxed">
+                                地域の名産をつくる老舗の和菓子屋さん。新店舗出店にあたり、単なる「店づくり」ではなく、自社ブランドの確立するための「ブランドの再定義」が求められました。5人の建築家が「伝統と洗練の共生」をテーマに競い合い、この洗練された空間そのものが広報メディアとなり、事業拡大の確かな土台となるように計画しました。
+                            </p>
+                        </div>
+                        <div class="lg:w-[72%] grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="md:row-span-2 overflow-hidden rounded-2xl h-80 md:h-[520px] bg-gray-100 relative group"><img src="images/39601.jpg" alt="正面" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                            <div class="overflow-hidden rounded-2xl h-48 md:h-[254px] bg-gray-100 relative group"><img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                            <div class="overflow-hidden rounded-2xl h-48 md:h-[254px] bg-gray-100 relative group"><img src="images/39603.jpg" alt="詳細" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -61,9 +100,9 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)"><div class="step-text-wrapper"><div class="step-num">01</div><div class="step-label">戦略を<br>ヒアリング</div></div></div>
-                        <div class="step-trigger" onclick="openModalAtStep(2)"><div class="step-text-wrapper"><div class="step-num">02</div><div class="step-label">5名を<br>厳選</div></div></div>
-                        <div class="step-trigger" onclick="openModalAtStep(3)"><div class="step-text-wrapper"><div class="step-num">03</div><div class="step-label">5案を<br>直接提案</div></div></div>
-                        <div class="step-trigger" onclick="openModalAtStep(4)"><div class="step-text-wrapper"><div class="step-num">04</div><div class="step-label">最適案を<br>選択</div></div></div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(2)"><div class="step-text-wrapper"><div class="step-num">02</div><div class="step-label">5名を<br>厳選</div></div></div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(3)"><div class="step-text-wrapper"><div class="step-num">03</div><div class="step-label">5案を<br>直接提案</div></div></div>
+                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(4)"><div class="step-text-wrapper"><div class="step-num">04</div><div class="step-label">最適案を<br>選択</div></div></div>
                     </div>
                 </div>
             </section>
@@ -72,7 +111,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-8">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">数百件のコンペが証明するブランドの「確信」</h2>
-                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">私たちはこれまで<span class="font-bold text-white">数百件の住宅コンペ</span>を開催し、こだわりを形にしてきました。競争文化こそが、独自のブランドイメージを構築するための最強のパートナーとなります。</p>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">私たちはこれまで数百件の住宅コンペを開催し、こだわりを形にしてきました。競争文化こそが、独自のブランドイメージを構築するための最強のパートナーとなります。</p>
                     </div>
                     <div class="lg:col-span-4 text-center"><a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] px-12">実例集を見る</a></div>
                 </div>
