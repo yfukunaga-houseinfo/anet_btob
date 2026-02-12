@@ -7,148 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* モーダル用の追加スタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(30, 58, 138, 0.6);
-            backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background-color: #F5F2ED;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 40px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            position: relative;
-        }
-        .close-modal {
-            position: sticky;
-            top: 20px;
-            right: 20px;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 101;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        /* ステップカードのデザイン調整：文字サイズと余白を完全に統一 */
-        .step-trigger {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            overflow: hidden;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border: 1px solid rgba(30, 58, 138, 0.05);
-            aspect-ratio: 1 / 1;
-        }
-
-        /* ホバー時に色をつける演出 */
-        .step-trigger:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
-            border-color: rgba(30, 58, 138, 0.2);
-            background-color: #f0f7ff; /* ほんのりネイビー系の色がつく */
-        }
-
-        /* 線画イラストの配置：背景として透過 */
-        .step-illustration {
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
-            width: 85%;
-            height: 85%;
-            opacity: 0.15;
-            transition: all 0.6s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .step-trigger:hover .step-illustration {
-            opacity: 0.35;
-            transform: scale(1.03);
-        }
-
-        .step-text-wrapper {
-            position: relative;
-            z-index: 1;
-            padding: 1.75rem;
-            width: 100%;
-        }
-
-        /* 文字サイズ指定を完全に固定 */
-        .step-num {
-            font-size: 1.875rem; /* text-3xl */
-            line-height: 2.25rem;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 0.25rem;
-        }
-        .step-label {
-            font-size: 0.875rem; /* text-sm */
-            line-height: 1.4;
-            font-weight: 700;
-            color: #4b5563; /* text-gray-600 */
-        }
-
-        /* カード背景画像の設定 */
-        .bento-card-bg {
-            position: relative;
-            z-index: 1;
-            background-color: white;
-            overflow: hidden;
-        }
-        .bento-card-bg::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.12; /* 半透明の度合い */
-            z-index: -1;
-            transition: opacity 0.4s ease;
-        }
-        .bento-card-bg:hover::before {
-            opacity: 0.2; /* ホバー時に少し濃くする演出 */
-        }
-
-        /* 各目的別の背景画像指定 */
-        .bg-recruitment::before { background-image: url('images/S-takemoto_101.jpg'); }
-        .bg-sales::before { background-image: url('images/h04607.jpg'); }
-        .bg-expansion::before { background-image: url('images/39601.jpg'); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .reveal { animation: fadeIn 1s ease forwards; }
-    </style>
 </head>
-<body class="noise-bg">
+<body class="noise-bg" id="page-top">
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
@@ -167,7 +27,6 @@
     <main class="pt-32 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
             
-            <!-- Hero Section -->
             <section class="mb-20 text-center reveal">
                 <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base md:text-lg font-bold mb-6 shadow-sm">店舗改装・事務所新築を検討中の経営者様へ</span>
                 <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8 text-gray-800">
@@ -178,8 +37,7 @@
                     「安さ」を基準に知り合いの工務店へ依頼する。その判断が、<br class="hidden md:block">
                     <span class="font-bold text-[#1e3a8a]">ビジネスの可能性を狭めていませんか？</span><br>
                     店舗や事務所の設計は、コストではなく、将来の利益を創出するための<span class="font-bold text-gray-800">「投資」</span>です。<br><br>
-                    設計コンペで提示される<span class="font-bold text-[#1e3a8a]">5つの異なる戦略</span>に触れてください。<br class="hidden md:block">
-                    建築が<span class="font-bold text-[#1e3a8a]">「経営の武器」</span>に変わる瞬間を目の当たりにしたとき、あなたの視界は大きく開けるはずです。
+                    住宅設計の現場で磨かれた、<span class="font-bold text-[#1e3a8a]">数百件の実績</span>が証明する「コンペの力」をビジネスへ。
                 </p>
                 <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
                     <a href="#branch" class="btn-primary">目的別の設計戦略を見る</a>
@@ -187,7 +45,6 @@
                 </div>
             </section>
 
-            <!-- Problem Section -->
             <section id="about" class="mb-24">
                 <h2 class="text-2xl font-bold mb-10 text-center text-gray-800">多くの経営者が直面する建築の<span class="text-[#1e3a8a]">「落とし穴」</span></h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -221,7 +78,6 @@
                 </div>
             </section>
 
-            <!-- System Section -->
             <section id="system" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
                 <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -246,7 +102,6 @@
                         </button>
                     </div>
 
-                    <!-- Steps Grid -->
                     <div class="grid grid-cols-2 gap-4">
                         <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
                             <div class="step-illustration">
@@ -320,7 +175,6 @@
                 </div>
             </section>
 
-            <!-- Case Study Archive Section -->
             <section class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-8">
@@ -328,21 +182,17 @@
                         <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
                             これまで私たちは住宅建築を中心に数百件の設計コンペを開催し、唯一無二の価値を形にしてきました。<br>
                             正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
-                            しかし、一軒一軒の「理想の暮らし」を極限まで突き詰め、建築家同士が熾烈な知恵を競い合ってきた住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
+                            しかし、住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
                         </p>
                     </div>
                     <div class="lg:col-span-4 text-center lg:text-right">
                         <a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-8">
                             コンペ実例集を見る
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
                         </a>
                     </div>
                 </div>
             </section>
 
-            <!-- Branch Section -->
             <section id="branch">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold mb-4 text-gray-800">解決したい<span class="text-[#1e3a8a]">「経営課題」</span>はどれですか？</h2>
@@ -372,7 +222,6 @@
         </div>
     </main>
 
-    <!-- Modal for Detailed Process -->
     <div id="processModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -422,7 +271,6 @@
         </div>
     </div>
 
-    <!-- フッター -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
@@ -438,13 +286,12 @@
     </footer>
 
     <script>
-        // Modal logic
         const modal = document.getElementById("processModal");
         const btn = document.getElementById("openProcess");
         const span = document.getElementsByClassName("close-modal")[0];
 
-        btn.onclick = function() { openModalAtStep(0); }
-        span.onclick = function() { closeProcessModal(); }
+        if(btn) btn.onclick = function() { openModalAtStep(0); }
+        if(span) span.onclick = function() { closeProcessModal(); }
         window.onclick = function(event) { if (event.target == modal) { closeProcessModal(); } }
 
         function openModalAtStep(stepNumber) {
@@ -468,7 +315,6 @@
             document.body.style.overflow = "auto";
         }
 
-        // Observer for reveal animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
