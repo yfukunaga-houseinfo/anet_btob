@@ -6,19 +6,19 @@
     <title>ブランド構築・拠点設計モデル | 一般社団法人建築家ネットワーク・ナビ</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
         body { font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif; background-color: #F5F2ED; color: #333; overflow-x: hidden; line-height: 1.6; }
         .noise-bg::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); z-index: 9999; }
         .accent-text { color: #1e3a8a !important; }
         .bento-card { background: white; border-radius: 32px; padding: 2.5rem; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
         .bento-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1); }
-        .btn-primary { background-color: #1e3a8a; color: white; padding: 1.25rem 2.5rem; border-radius: 100px; display: inline-flex; align-items: center; transition: all 0.3s ease; font-weight: 700; text-align: center; justify-content: center; border: none; cursor: pointer; }
-        .btn-primary:hover { opacity: 0.9; transform: scale(1.02); box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2); }
+        .btn-primary { background-color: #1e3a8a; color: white; padding: 1.25rem 2.5rem; border-radius: 100px; display: inline-flex; align-items: center; transition: all 0.3s ease; font-weight: 700; text-align: center; justify-content: center; border: none; cursor: pointer; text-decoration: none; }
+        .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(30, 58, 138, 0.6); backdrop-filter: blur(8px); }
         .modal-content { background-color: #F5F2ED; margin: 5% auto; padding: 0; border-radius: 40px; width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; }
         .close-modal { position: sticky; top: 20px; right: 20px; float: right; font-size: 28px; font-weight: bold; cursor: pointer; z-index: 101; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .step-trigger, .insight-trigger { position: relative; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); overflow: hidden; background: #fff; display: flex; flex-direction: column; justify-content: flex-start; border: 1px solid rgba(30, 58, 138, 0.05); }
-        .step-trigger { aspect-ratio: 1 / 1; border-radius: 24px; }
+        .step-trigger, .insight-trigger { position: relative; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); overflow: hidden; background: #fff; display: flex; flex-direction: column; justify-content: flex-start; border: 1px solid rgba(30, 58, 138, 0.05); aspect-ratio: 1/1; border-radius: 24px; }
         .step-trigger:hover, .insight-trigger:hover { transform: translateY(-8px); background-color: #f0f7ff; }
         .step-illustration { position: absolute; bottom: 5%; right: 5%; width: 85%; height: 85%; opacity: 0.15; transition: all 0.6s ease; pointer-events: none; z-index: 0; }
         .step-text-wrapper { position: relative; z-index: 1; padding: 1.75rem; width: 100%; }
@@ -33,7 +33,7 @@
 
     <header class="fixed w-full z-50 px-6 py-4">
         <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <a href="index.html" class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a] hover:opacity-80 transition-opacity">
+            <a href="index.html" class="font-bold text-lg md:text-xl accent-text hover:opacity-80 transition-opacity">
                 <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
             </a>
             <div class="hidden md:flex gap-8 text-sm font-medium">
@@ -50,35 +50,52 @@
             <section class="mb-20 reveal">
                 <div class="max-w-4xl">
                     <span class="inline-block px-6 py-2 rounded-full bg-white border border-[#1e3a8a]/20 text-[#1e3a8a] text-base font-bold mb-6 shadow-sm uppercase tracking-widest">Brand Strategy × Architecture</span>
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8">事業の価値を高めるのは、<br>他社には真似できない<span class="text-[#1e3a8a]">“ブランドの空間化”</span>です。</h1>
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8 text-gray-800">事業の価値を高めるのは、<br>他社には真似できない<span class="text-[#1e3a8a]">“ブランドの空間化”</span>です。</h1>
+                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed">拠点を単なる場所ではなく企業のビジョンを体現する「ブランド資産」へ。5人の建築家が御社の「らしさ」を定義し、市場での存在感を確固たるものにする設計モデルを提案します。</p>
                 </div>
             </section>
 
             <section id="success-case" class="bento-card md:col-span-12 scroll-mt-24 mb-24">
                 <div class="flex flex-col lg:flex-row gap-10">
                     <div class="lg:w-2/5">
-                        <div class="case-study-tag">成功事例：三島屋本店</div>
+                        <div class="case-study-tag">成功事例：三島屋本店（自社ブランド確立）</div>
                         <h3 class="text-2xl font-bold mb-6 text-[#1e3a8a]">事業の「らしさ」を空間化し、唯一無二の価値を確立。</h3>
-                        <p class="text-gray-600 leading-relaxed text-sm mb-8">商品を最も美しく見せつつ、誰もが直感的にブランドを感じ取れる空間を構築。確かな土台となるように計画しました。</p>
+                        <p class="text-gray-600 text-sm mb-8 leading-relaxed">
+                            地域の名産をつくる老舗の和菓子屋さん。新店舗出店にあたり、単なる「店づくり」ではなく、自社ブランドの確立するための「ブランドの再定義」が求められました。5人の建築家が商品を最も美しく見せつつ、直感的にブランドを感じ取れる空間を構築。広報メディアとなり、事業拡大の確かな土台となるように計画しました。
+                        </p>
                     </div>
                     <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100"><img src="images/39601.jpg" alt="正面" class="w-full h-full object-cover"></div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100"><img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover"></div>
-                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100"><img src="images/39603.jpg" alt="詳細" class="w-full h-full object-cover"></div>
+                        <div class="md:row-span-2 overflow-hidden rounded-2xl h-64 md:h-full bg-gray-100 relative group"><img src="images/39601.jpg" alt="正面" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/39602.jpg" alt="内観" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                        <div class="overflow-hidden rounded-2xl h-48 md:h-64 bg-gray-100 relative group"><img src="images/39603.jpg" alt="詳細" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- 実例集リンク -->
-            <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
+            <section id="why-5" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="text-[#1e3a8a]">「5人の建築家」による<br>設計コンペ</span>なのか</h2>
+                        <p class="text-gray-600 mb-8 leading-relaxed">ブランド確立には多角的な検証が不可欠です。一人のアイデアに頼らず、5人の建築家がそれぞれの感性を持ち寄り、競い合うことで、最も市場で際立つ「正解」が見つかります。</p>
+                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">設計コンペの有効性を詳しく見る</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="step-trigger" onclick="openModalAtStep(1)"><div class="step-text-wrapper"><div class="step-num">01</div><div class="step-label">戦略を<br>ヒアリング</div></div></div>
+                        <div class="step-trigger" onclick="openModalAtStep(2)"><div class="step-text-wrapper"><div class="step-num">02</div><div class="step-label">5名を<br>厳選</div></div></div>
+                        <div class="step-trigger" onclick="openModalAtStep(3)"><div class="step-text-wrapper"><div class="step-num">03</div><div class="step-label">5つのプランを<br>直接提案</div></div></div>
+                        <div class="step-trigger" onclick="openModalAtStep(4)"><div class="step-text-wrapper"><div class="step-num">04</div><div class="step-label">最適案を<br>選択</div></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cases" class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden text-center lg:text-left">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-8">
-                        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">数百件のコンペが証明するブランドの「確信」</h2>
-                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
-                            私たちはこれまで<span class="font-bold text-white">数百件の住宅コンペ</span>を開催し、こだわりを形にしてきました。その「個」を際立たせる文化こそが、独自のブランドイメージを構築するための最強のパートナーとなります。
-                        </p>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">数百件のコンペが証明する「ブランドの確信」</h2>
+                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">私たちはこれまで<span class="font-bold text-white">数百件の住宅コンペ</span>を開催し、こだわりを形にしてきました。競争文化こそが、独自のブランドイメージを構築するための最強のパートナーとなります。</p>
                     </div>
-                    <div class="lg:col-span-4 text-center"><a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] px-12">コンペ実例集を見る</a></div>
+                    <div class="lg:col-span-4 text-center"><a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] px-12">実例集を見る</a></div>
                 </div>
             </section>
         </div>
@@ -96,7 +113,29 @@
         </div>
     </footer>
 
+    <div id="insightModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeInsightModal()">&times;</span><div class="p-8 md:p-12" id="insightContent"></div></div></div>
+    <div id="processModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeProcessModal()">&times;</span><div class="p-8 md:p-12">
+        <h2 class="text-2xl font-bold mb-6 text-[#1e3a8a]">設計コンペの有効性とプロセス</h2>
+        <div id="step-detail-1" class="bg-white p-6 rounded-2xl mb-4"><h4>01 戦略をヒアリング</h4><p class="text-sm">経営者の思想やブランドの歴史を整理し資料化します。</p></div>
+        <div id="step-detail-2" class="bg-white p-6 rounded-2xl mb-4"><h4>02 5名を厳選</h4><p class="text-sm">ブランドにマッチした表現力の高い5名を厳選します。</p></div>
+        <div id="step-detail-3" class="bg-white p-6 rounded-2xl mb-4"><h4>03 5つのプランを直接提案</h4><p class="text-sm">ブランド価値をどう空間化するか、直接プレゼンします。</p></div>
+        <div id="step-detail-4" class="bg-white p-6 rounded-2xl mb-4"><h4>04 最適案を選択</h4><p class="text-sm">経営合理性とブランドの親和性で一案を決定します。</p></div>
+        <div class="text-center mt-10"><button onclick="closeProcessModal()" class="btn-primary">閉じる</button></div>
+    </div></div></div>
+
     <script>
+        const insightModal = document.getElementById("insightModal");
+        const processModal = document.getElementById("processModal");
+        const insights = {
+            soft: { title: "ブランド定義は経営の意思", body: `<p class="text-gray-600 mb-6">自社の価値を明確にすることが、選ばれるブランドの第一歩です。</p><div class="p-6 bg-blue-50 rounded-2xl border border-blue-100"><h4 class="font-bold text-[#1e3a8a] mb-2">「なんとなく」の怖さ</h4><p class="text-sm text-blue-700">一貫性のないブランドイメージは顧客を迷わせ、資産価値を削るリスクを孕んでいます。</p></div>` },
+            hard: { title: "空間は最強のメディア", body: `<p class="text-gray-600 mb-6">信頼を五感で伝える空間は、広告を打たずとも価値を発信し続けます。</p><div class="p-6 bg-[#1e3a8a] text-white rounded-2xl"><h4 class="font-bold mb-2">空間が資産価値を増大させる</h4><p class="text-sm opacity-80">確立された空間は時間の経過とともに文化として根ざし、永続的なブランドとなります。</p></div>` }
+        };
+        function openInsightModal(type) { const d = insights[type]; document.getElementById("insightContent").innerHTML = `<h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#1e3a8a]">${d.title}</h2><div class="insight-body">${d.body}</div><div class="text-center mt-10"><button onclick="closeInsightModal()" class="btn-primary">閉じる</button></div>`; insightModal.style.display = "block"; document.body.style.overflow = "hidden"; }
+        function closeInsightModal() { insightModal.style.display = "none"; document.body.style.overflow = "auto"; }
+        function openModalAtStep(n) { processModal.style.display = "block"; document.body.style.overflow = "hidden"; if(n>0){ setTimeout(() => { document.getElementById(`step-detail-${n}`).scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100); } }
+        function closeProcessModal() { processModal.style.display = "none"; document.body.style.overflow = "auto"; }
+        document.getElementById("openProcess").onclick = () => openModalAtStep(0);
+        window.onclick = (e) => { if(e.target==insightModal) closeInsightModal(); if(e.target==processModal) closeProcessModal(); };
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); }); }, { threshold: 0.1 });
         document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
     </script>
