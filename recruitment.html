@@ -41,7 +41,7 @@
                 </div>
             </section>
 
-            <!-- 課題と気づきのグリッド（下部の余白を調整） -->
+            <!-- 課題と気づきのグリッド -->
             <section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24 items-start">
                 <div class="bento-card md:col-span-7 bg-[#1e3a8a] text-white border-none shadow-xl !pb-6">
                     <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-tight">優秀層が会社を見る“本当の基準”</h2>
@@ -237,6 +237,7 @@
         </div>
     </div>
 
+    <!-- フッター -->
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
@@ -249,23 +250,22 @@
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        const processModal = document.getElementById("processModal");
-        const insightModal = document.getElementById("insightModal");
-        const openProcessBtn = document.getElementById("openProcess");
-
         const insights = {
             soft: { title: "待遇（ソフト）は「選考のスタートライン」", body: `<p class="text-gray-600 leading-relaxed mb-6">給与や福利厚生は、今の時代、優秀な人が検討リストに入れるための基準に過ぎません。足りなければ土俵にすら上がれませんが、決定打にはならないのが現実です。</p><div class="p-6 bg-blue-50 rounded-2xl border border-blue-100"><h4 class="font-bold text-[#1e3a8a] mb-2">「条件」だけで集める怖さ</h4><p class="text-sm text-blue-700 leading-relaxed">条件だけで寄ってきた人は、より良い条件を出す会社が現れれば、あっさりと去っていきます。条件の吊り上げに付き合い続けるのは経営リスクです。</p></div>` },
             hard: { title: "環境（ハード）は「経営者の覚悟」の現れ", body: `<p class="text-gray-600 leading-relaxed mb-6">どんな場所で働かせるかは、経営者の社員に対する本気度を無言で語ります. 誇りを持って働ける空間は、社員の帰属意識を呼び起こし、高いパフォーマンスを生む原動力になります。</p><div class="p-6 bg-[#1e3a8a] text-white rounded-2xl"><h4 class="font-bold mb-2">「この場所」が最強の求人票になる</h4><p class="text-sm opacity-80 leading-relaxed">「ここで働いている自分」をイメージしてワクワクする。そんな空間は、どんな求人広告よりも人を惹きつけます。建築を「投資」と捉える最大のメリットです。</p></div>` }
         };
-        function openInsightModal(type) { const d = insights[type]; document.getElementById("insightContent").innerHTML = `<h2 class="text-2xl md:text-3xl font-bold accent-text mb-6 text-[#1e3a8a]">${d.title}</h2><div class="insight-body">${d.body}</div><div class="text-center mt-10"><button onclick="closeInsightModal()" class="btn-primary">閉じる</button></div>`; insightModal.style.display = "block"; document.body.style.overflow = "hidden"; }
-        function closeInsightModal() { insightModal.style.display = "none"; document.body.style.overflow = "auto"; }
-        function openModalAtStep(n) { processModal.style.display = "block"; document.body.style.overflow = "hidden"; if(n>0){ setTimeout(() => { document.getElementById(`step-detail-${n}`).scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100); } }
-        function closeProcessModal() { processModal.style.display = "none"; document.body.style.overflow = "auto"; }
-        document.getElementById("openProcess").onclick = () => openModalAtStep(0);
-        window.onclick = (e) => { if(e.target==insightModal) closeInsightModal(); if(e.target==processModal) closeProcessModal(); };
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('section').forEach(s => { s.style.opacity = "0"; observer.observe(s); });
+        function openInsightModal(type) { 
+            const d = insights[type]; 
+            document.getElementById("insightContent").innerHTML = `<h2 class="text-2xl md:text-3xl font-bold accent-text mb-6 text-[#1e3a8a]">${d.title}</h2><div class="insight-body">${d.body}</div><div class="text-center mt-10"><button onclick="closeInsightModal()" class="btn-primary">閉じる</button></div>`; 
+            document.getElementById("insightModal").style.display = "block"; 
+            document.body.style.overflow = "hidden"; 
+        }
+        function closeInsightModal() { 
+            document.getElementById("insightModal").style.display = "none"; 
+            document.body.style.overflow = "auto"; 
+        }
     </script>
 </body>
 </html>
