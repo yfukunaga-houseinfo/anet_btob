@@ -24,13 +24,7 @@ body {
 }
 
 /* 共通カラー・アクセント設定 */
-/* ネイビー（#1e3a8a）への統一と、HTML直書きクラスの上書き */
-.accent-text, .text-\[\#5B7B65\] { color: #1e3a8a !important; }
-.bg-accent, .bg-\[\#5B7B65\] { background-color: #1e3a8a !important; }
-.border-\[\#5B7B65\] { border-color: #1e3a8a !important; }
-
-/* ホバー時の色もネイビー系に上書き */
-.hover\:text-\[\#5B7B65\]:hover { color: #1e3a8a !important; }
+.accent-text { color: #1e3a8a !important; }
 
 /* Bentoカードデザイン */
 .bento-card {
@@ -46,7 +40,6 @@ body {
 
 .bento-card:hover {
     transform: translateY(-8px);
-    /* ホバー時の影もネイビー系に馴染ませる */
     box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
 }
 
@@ -62,6 +55,9 @@ body {
     font-weight: 700;
     text-align: center;
     justify-content: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .btn-primary:hover {
@@ -70,7 +66,110 @@ body {
     box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
 }
 
-/* フェードインアニメーション */
+/* モーダル基本スタイル（全ページ共通） */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 58, 138, 0.6);
+    backdrop-filter: blur(8px);
+}
+.modal-content {
+    background-color: #F5F2ED;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 40px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+.close-modal {
+    position: sticky;
+    top: 20px;
+    right: 20px;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 101;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 4ステップ・トリガー（全ページ共通） */
+.step-trigger, .insight-trigger {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid rgba(30, 58, 138, 0.05);
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+}
+.step-trigger:hover, .insight-trigger:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
+    background-color: #f0f7ff;
+}
+
+.step-illustration {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 85%;
+    height: 85%;
+    opacity: 0.15;
+    transition: all 0.6s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+.step-trigger:hover .step-illustration {
+    opacity: 0.35;
+    transform: scale(1.03);
+}
+
+.step-text-wrapper {
+    position: relative;
+    z-index: 1;
+    padding: 1.75rem;
+    width: 100%;
+}
+.step-num {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 0.25rem;
+}
+.step-label {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #4b5563;
+}
+
+/* アニメーションと共通設定 */
+html {
+    scroll-behavior: smooth;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -82,7 +181,7 @@ body {
 
 /* 成功事例用タグ */
 .case-study-tag {
-    background: #e0e7ff; /* 薄い青色 */
+    background: #e0e7ff; 
     color: #1e3a8a;
     padding: 4px 12px;
     border-radius: 8px;
@@ -92,11 +191,15 @@ body {
     margin-bottom: 1rem;
 }
 
-/* 装飾的な形状 */
 .organic-curve { border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%; }
-.organic-shape { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
 
-/* 数値強調 */
-.stat-value {
-    color: #1e3a8a;
+/* インデックスページのカード背景（index.html専用） */
+.bento-card-bg { position: relative; z-index: 1; background-color: white; overflow: hidden; }
+.bento-card-bg::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center; opacity: 0.12; z-index: -1; transition: opacity 0.4s ease;
 }
+.bento-card-bg:hover::before { opacity: 0.2; }
+.bg-recruitment::before { background-image: url('images/S-takemoto_101.jpg'); }
+.bg-sales::before { background-image: url('images/h04607.jpg'); }
+.bg-expansion::before { background-image: url('images/39601.jpg'); }
