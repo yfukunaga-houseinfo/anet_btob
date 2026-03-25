@@ -5,371 +5,441 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>経営から考える建築 | 建築家ネットワーク・ナビ</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* モーダル用の追加スタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
+        /* ===== Base ===== */
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            overflow-x: hidden;
+        }
+        html { scroll-behavior: smooth; }
+
+        .font-serif { font-family: 'Noto Serif JP', serif; }
+
+        /* ===== Header ===== */
+        #header {
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+        #header.scrolled {
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07);
+        }
+        #header .logo-text {
+            color: #ffffff;
+            transition: color 0.4s ease;
+        }
+        #header.scrolled .logo-text {
+            color: #0f1f4a;
+        }
+
+        /* ===== Hero ===== */
+        .hero-section {
+            position: relative;
+            min-height: 100svh;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 12vh;
+        }
+        .hero-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(8, 15, 35, 0.92) 0%,
+                rgba(8, 15, 35, 0.55) 55%,
+                rgba(8, 15, 35, 0.25) 100%
+            );
+        }
+
+        /* ===== Gold accent ===== */
+        .gold-bar {
+            display: inline-block;
+            width: 36px;
+            height: 2px;
+            background: #c9a96e;
+        }
+        .border-gold { border-color: #c9a96e; }
+
+        /* ===== Problem cards ===== */
+        .problem-card {
+            border-top: 2px solid #c9a96e;
+            padding-top: 1.5rem;
+        }
+
+        /* ===== Step numbers ===== */
+        .step-num {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.75rem;
+            line-height: 1;
+            color: #c9a96e;
+            opacity: 0.55;
+        }
+
+        /* ===== Photo hover ===== */
+        .photo-hover {
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        .photo-hover img {
+            transition: transform 0.7s ease;
             width: 100%;
             height: 100%;
-            background-color: rgba(30, 58, 138, 0.6);
+            object-fit: cover;
+            display: block;
+        }
+        .photo-hover:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ===== Fade-up animation ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        .fade-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up.delay-1 { transition-delay: 0.1s; }
+        .fade-up.delay-2 { transition-delay: 0.2s; }
+        .fade-up.delay-3 { transition-delay: 0.3s; }
+
+        /* ===== Sticky CTA（モバイル） ===== */
+        #sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding: 12px 16px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            background: rgba(15, 31, 74, 0.97);
             backdrop-filter: blur(8px);
+            transform: translateY(110%);
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .modal-content {
-            background-color: #F5F2ED;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 40px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            position: relative;
+        #sticky-cta.visible {
+            transform: translateY(0);
         }
-        .close-modal {
-            position: sticky;
-            top: 20px;
-            right: 20px;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 101;
-            width: 40px;
-            height: 40px;
-            display: flex;
+
+        /* ===== CTA Button ===== */
+        .btn-gold {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        /* ステップカードのデザイン調整：文字サイズと余白を完全に統一 */
-        .step-trigger {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            overflow: hidden;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border: 1px solid rgba(30, 58, 138, 0.05);
-            aspect-ratio: 1 / 1;
-        }
-
-        /* ホバー時に色をつける演出 */
-        .step-trigger:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
-            border-color: rgba(30, 58, 138, 0.2);
-            background-color: #f0f7ff; /* ほんのりネイビー系の色がつく */
-        }
-
-        /* 線画イラストの配置：背景として透過 */
-        .step-illustration {
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
-            width: 85%;
-            height: 85%;
-            opacity: 0.15;
-            transition: all 0.6s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .step-trigger:hover .step-illustration {
-            opacity: 0.35;
-            transform: scale(1.03);
-        }
-
-        .step-text-wrapper {
-            position: relative;
-            z-index: 1;
-            padding: 1.75rem;
-            width: 100%;
-        }
-
-        /* 文字サイズ指定を完全に固定 */
-        .step-num {
-            font-size: 1.875rem; /* text-3xl */
-            line-height: 2.25rem;
+            gap: 0.6rem;
+            background: #c9a96e;
+            color: #ffffff;
             font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 0.25rem;
+            border-radius: 9999px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
         }
-        .step-label {
-            font-size: 0.875rem; /* text-sm */
-            line-height: 1.4;
+        .btn-gold:hover {
+            background: #b8955a;
+            transform: scale(1.02);
+        }
+        .btn-outline-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1.5px solid #c9a96e;
+            color: #c9a96e;
             font-weight: 700;
-            color: #4b5563; /* text-gray-600 */
+            border-radius: 9999px;
+            transition: background 0.3s ease, color 0.3s ease;
+            text-decoration: none;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-outline-gold:hover {
+            background: #c9a96e;
+            color: #ffffff;
         }
-        .reveal { animation: fadeIn 1s ease forwards; }
     </style>
 </head>
-<body class="noise-bg" id="page-top">
+<body>
 
-    <header class="fixed w-full z-50 px-6 py-4">
-        <nav class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-8 py-3 border border-white/20 shadow-sm">
-            <div class="font-bold text-lg md:text-xl accent-text text-[#1e3a8a]">
-                <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ
-            </div>
-            <div class="hidden md:flex gap-8 text-sm font-medium">
-                <a href="#about" class="hover:text-[#1e3a8a]">コンセプト</a>
-                <a href="#system" class="hover:text-[#1e3a8a]">5人のコンペ</a>
-                <a href="#branch" class="hover:text-[#1e3a8a]">目的別プラン</a>
-            </div>
-            <!-- リンク先をGoogleフォームへ修正 -->
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4RS73PtFj4qPCFe6c-NCD-3tQT5OCNZUoVvssnmFv_4V0Sg/viewform?usp=publish-editor" target="_blank" class="btn-primary text-xs py-2 px-6">お問い合わせ</a>
-        </nav>
+    <!-- ===== Header ===== -->
+    <header id="header" class="fixed w-full z-40 px-5 py-4">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <a href="#" class="logo-text font-bold text-sm md:text-base leading-tight">
+                <span class="text-xs font-normal opacity-70 block">一般社団法人</span>
+                建築家ネットワーク・ナビ
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4RS73PtFj4qPCFe6c-NCD-3tQT5OCNZUoVvssnmFv_4V0Sg/viewform?usp=publish-editor"
+               target="_blank"
+               class="btn-outline-gold text-xs py-2.5 px-5 hidden md:inline-flex">
+                無料相談
+            </a>
+        </div>
     </header>
 
-    <main class="pt-32 pb-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            
-            <!-- Hero Section with Background Image -->
-            <section class="relative mb-20 py-16 md:py-24 px-6 rounded-[48px] overflow-hidden reveal">
-                <!-- 背景画像レイヤー -->
-                <div class="absolute inset-0 z-0">
-                    <img src="images/navitop.jpg" alt="背景" class="w-full h-full object-cover opacity-20">
-                    <!-- 左側のテキストを読みやすくするためのグラデーションオーバーレイ -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-[#F5F2ED] via-[#F5F2ED]/60 to-transparent"></div>
-                </div>
+    <main>
 
-                <div class="relative z-10 text-center">
-                    <span class="inline-block px-6 py-2 rounded-full bg-white/90 border border-[#1e3a8a]/20 text-[#1e3a8a] text-base md:text-lg font-bold mb-6 shadow-sm backdrop-blur-sm">店舗改装・事務所新築を検討中の経営者様へ</span>
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-8 text-gray-800">
-                        その建築を、<span class="accent-text">最高の投資</span>へ。<br>
-                        <span class="text-2xl md:text-4xl block mt-4 text-gray-700">設計コンペで<span class="text-[#1e3a8a]">５人の建築家</span>が競い合う</span>
-                    </h1>
-                    
-                    <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 text-left">
-                        「安さ」を基準に知り合いの工務店へ依頼する。その判断が、<br class="hidden md:block">
-                        <span class="font-bold text-[#1e3a8a]">ビジネスの可能性を狭めていませんか？</span><br>
-                        店舗や事務所の設計は、コストではなく、将来の利益を創出するための<span class="font-bold text-gray-800">「投資」</span>です。<br><br>
-                        設計コンペで提示される<span class="font-bold text-[#1e3a8a]">5つの異なる戦略</span>に触れてください。<br class="hidden md:block">
-                        建築が<span class="font-bold text-[#1e3a8a]">「経営の武器」</span>に変わる瞬間を目の当たりにしたとき、あなたの視界は大きく開けるはずです。<br><br>
-                        住宅設計の現場で磨かれた、<span class="font-bold text-[#1e3a8a]">数百件の実績</span>が証明する「コンペの力」をビジネスへ。
-                    </p>
-                    
-                    <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
-                        <a href="#branch" class="btn-primary">目的別の設計戦略を見る</a>
-                        <a href="#about" class="btn-primary border border-[#1e3a8a] bg-transparent text-[#1e3a8a]">選ばれる理由</a>
+        <!-- ===== ① Hero ===== -->
+        <section class="hero-section">
+            <!-- 背景写真 -->
+            <div class="absolute inset-0 z-0">
+                <img src="images/navitop.jpg" alt="" class="w-full h-full object-cover">
+                <div class="hero-overlay absolute inset-0"></div>
+            </div>
+
+            <!-- コンテンツ -->
+            <div class="relative z-10 w-full px-6 md:px-12 max-w-5xl mx-auto">
+                <span class="gold-bar mb-6 block"></span>
+                <p class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mb-5">
+                    店舗改装・事務所新築を検討中の経営者様へ
+                </p>
+                <h1 class="font-serif text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+                    その建築費、<br>
+                    経営の武器に<br>
+                    なっていますか？
+                </h1>
+                <p class="text-white/75 text-base md:text-lg leading-relaxed mb-10 max-w-lg">
+                    5人の建築家が競い合う設計コンペで、<br class="hidden md:block">
+                    あなたのビジネスに最適な空間戦略を。
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4RS73PtFj4qPCFe6c-NCD-3tQT5OCNZUoVvssnmFv_4V0Sg/viewform?usp=publish-editor"
+                   target="_blank"
+                   class="btn-gold text-sm py-4 px-8 mb-4">
+                    まず無料相談してみる
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <p class="text-white/35 text-xs">相談無料・契約の強制なし</p>
+            </div>
+        </section>
+
+        <!-- ===== ② 課題提起 ===== -->
+        <section class="py-20 md:py-28 px-6 bg-white">
+            <div class="max-w-5xl mx-auto">
+                <p class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mb-4 fade-up">Problem</p>
+                <h2 class="font-serif text-2xl md:text-4xl font-bold text-[#0f1f4a] mb-14 leading-tight fade-up">
+                    多くの経営者が陥る、<br class="md:hidden">建築の落とし穴
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="problem-card fade-up delay-1">
+                        <h3 class="font-bold text-[#0f1f4a] mb-3 leading-snug">完成してから<br>課題に気づく</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">動線の悪さ、手狭な空間。完成後の改修は多額の追加コストを生みます。設計段階での経営視点が不可欠です。</p>
+                    </div>
+                    <div class="problem-card fade-up delay-2">
+                        <h3 class="font-bold text-[#0f1f4a] mb-3 leading-snug">成果につながらない<br>「箱」になる</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">見た目は綺麗でも採用も集客も変わらない。経営の視点が設計に反映されていないからです。</p>
+                    </div>
+                    <div class="problem-card fade-up delay-3">
+                        <h3 class="font-bold text-[#0f1f4a] mb-3 leading-snug">1社だけの提案で<br>決めてしまう</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">比較なしに数千万の決断。「他に最適解があるのでは」という後悔を、コンペが根本から解消します。</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Problem Section -->
-            <section id="about" class="mb-24">
-                <h2 class="text-2xl font-bold mb-10 text-center text-gray-800">多くの経営者が直面する建築の<span class="text-[#1e3a8a]">「落とし穴」</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="bento-card md:col-span-2">
-                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl">⚠️</div>
-                        <h3 class="text-xl font-bold mb-4 text-[#1e3a8a]">完成してから課題に気づく</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            店舗の動線が悪く回転率が上がらない、事務所が手狭で採用に響く。完成後の改修には<span class="font-bold text-gray-700">多額の追加コスト</span>がかかります。
-                        </p>
+        <!-- ===== ③ 解決策：コンペの仕組み ===== -->
+        <section class="py-20 md:py-28 px-6 bg-[#0f1f4a]">
+            <div class="max-w-5xl mx-auto">
+                <p class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mb-4 fade-up">Solution</p>
+                <h2 class="font-serif text-2xl md:text-4xl font-bold text-white mb-6 leading-tight fade-up">
+                    5人の建築家が、<br>
+                    あなたの経営課題と<br class="md:hidden">真剣に競い合う
+                </h2>
+                <p class="text-white/65 text-sm md:text-base leading-relaxed mb-14 max-w-2xl fade-up">
+                    「どう設計すればビジネスが伸びるか」に唯一の正解はありません。
+                    だからこそ、経営視点を持つ5名の建築家が異なる戦略を提案し、
+                    あなたが比較・選択できる仕組みをつくっています。
+                </p>
+
+                <!-- 4ステップ -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+                    <div class="fade-up delay-1">
+                        <div class="step-num mb-2">01</div>
+                        <div class="w-6 h-px bg-[#c9a96e] mb-4"></div>
+                        <h3 class="text-white font-bold text-sm mb-2">戦略をヒアリング</h3>
+                        <p class="text-white/45 text-xs leading-relaxed">経営課題と数値目標を専門家が整理・資料化</p>
                     </div>
-                    <div class="bento-card md:col-span-2">
-                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl">📉</div>
-                        <h3 class="text-xl font-bold mb-4 text-[#1e3a8a]">成果につながらない「箱」</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            建物は綺麗になったが、採用応募が増えない、客足が伸びない。それは<span class="font-bold text-gray-700">「経営」が設計されていない</span>からです。
-                        </p>
+                    <div class="fade-up delay-2">
+                        <div class="step-num mb-2">02</div>
+                        <div class="w-6 h-px bg-[#c9a96e] mb-4"></div>
+                        <h3 class="text-white font-bold text-sm mb-2">5名を厳選</h3>
+                        <p class="text-white/45 text-xs leading-relaxed">業態・予算・ブランドに最適な精鋭5名をマッチング</p>
                     </div>
-                    <div class="bento-card md:col-span-4 lg:col-span-1 text-center md:text-left">
-                        <div class="w-12 h-12 bg-[#F5F2ED] rounded-full flex items-center justify-center mb-6 text-xl mx-auto md:mx-0">⛓️</div>
-                        <h3 class="text-xl font-bold mb-2">比較できない不安</h3>
-                        <p class="text-gray-500 text-xs">
-                            一社だけの提案で決めていいのか。<span class="font-bold">「事業の正解」</span>が他にあるのではないか、という疑念。
-                        </p>
+                    <div class="fade-up delay-3">
+                        <div class="step-num mb-2">03</div>
+                        <div class="w-6 h-px bg-[#c9a96e] mb-4"></div>
+                        <h3 class="text-white font-bold text-sm mb-2">5つの提案を受ける</h3>
+                        <p class="text-white/45 text-xs leading-relaxed">建築家が直接プレゼン。5通りの経営戦略を比較</p>
                     </div>
-                    <div class="bento-card md:col-span-4 lg:col-span-3 bg-[#1e3a8a] text-white border-none shadow-lg">
-                        <h3 class="text-2xl font-bold mb-4">建物を作る前に、<span class="text-blue-200">収益モデルを空間化</span>する。</h3>
-                        <p class="opacity-90 leading-relaxed">
-                            私たちは、売上・採用・ブランド・拡張性を前提にした<span class="font-bold">“経営を設計する建築”</span>を創造します。それを<span class="underline decoration-2 underline-offset-4">「5人の比較」で確信に変えます</span>。
-                        </p>
+                    <div class="fade-up delay-1">
+                        <div class="step-num mb-2">04</div>
+                        <div class="w-6 h-px bg-[#c9a96e] mb-4"></div>
+                        <h3 class="text-white font-bold text-sm mb-2">最適案を選択</h3>
+                        <p class="text-white/45 text-xs leading-relaxed">5案を比較した確信を持って、最高の一社を選べる</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- System Section -->
-            <section id="system" class="mb-24 py-20 bg-white rounded-[48px] px-10 border border-gray-100 shadow-sm relative overflow-hidden">
-                <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#F5F2ED] organic-curve opacity-50"></div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-8 text-gray-800">なぜ<span class="text-[#1e3a8a]">「5人の建築家」</span>なのか</h2>
-                        <p class="text-gray-600 mb-8 leading-relaxed">
-                            1人の設計士の提案に、会社の未来を背負わせますか？<br>
-                            5名の建築家が、あなたのビジネスに対する建築の<span class="font-bold text-gray-800">「5つの異なるプラン」</span>を提示します。
-                        </p>
-                        <ul class="space-y-4 mb-10">
-                            <li class="flex items-center gap-3">
-                                <span class="w-6 h-6 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center text-xs font-bold">✓</span>
-                                <span class="font-medium text-gray-700">異なる視点から<span class="font-bold text-[#1e3a8a]">「投資対効果」</span>を多角的に検証</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="w-6 h-6 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center text-xs font-bold">✓</span>
-                                <span class="font-medium text-gray-700 text-sm">比較することで、最も<span class="font-bold text-[#1e3a8a]">「勝てる」</span>案を確信する</span>
-                            </li>
-                        </ul>
-                        <button id="openProcess" class="btn-primary bg-transparent border border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white">
-                            設計コンペの有効性を詳しく見る
-                        </button>
-                    </div>
+        <!-- ===== ④ 実例 ===== -->
+        <section class="py-20 md:py-28 px-6 bg-[#f8f7f5]">
+            <div class="max-w-5xl mx-auto">
+                <p class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mb-4 fade-up">Case Study</p>
+                <h2 class="font-serif text-2xl md:text-4xl font-bold text-[#0f1f4a] mb-14 leading-tight fade-up">
+                    コンペが生んだ設計実例
+                </h2>
 
-                    <!-- Steps Grid -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(1)">
-                            <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="55" cy="70" r="18" />
-                                    <path d="M35 100 Q 55 120, 75 100 L 78 180 H 32 L 35 100" />
-                                    <circle cx="145" cy="80" r="22" />
-                                    <path d="M120 115 Q 145 145, 170 115 L 175 190 H 115 L 120 115" />
-                                    <path d="M110 145 L 140 125 L 180 145" />
-                                    <path d="M150 45 Q 170 20, 190 45 T 180 80" stroke-dasharray="3 3" />
-                                </svg>
-                            </div>
-                            <div class="step-text-wrapper">
-                                <div class="step-num">01</div>
-                                <div class="step-label">戦略を<br>ヒアリング</div>
-                            </div>
+                <!-- 事例1: KARUBE TREE×TREE -->
+                <div class="mb-16 fade-up">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                        <div class="photo-hover col-span-2 md:col-span-2 h-56 md:h-80">
+                            <img src="images/h04607.jpg" alt="KARUBE TREE×TREE 外観夜景" loading="lazy">
                         </div>
-
-                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(2)">
-                            <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="40" y="40" width="35" height="35" rx="2" />
-                                    <rect x="90" y="40" width="35" height="35" rx="2" stroke-width="2" />
-                                    <rect x="140" y="40" width="35" height="35" rx="2" />
-                                    <rect x="40" y="90" width="35" height="35" rx="2" stroke-width="2" />
-                                    <rect x="90" y="90" width="35" height="35" rx="2" />
-                                    <rect x="140" y="90" width="35" height="35" rx="2" stroke-width="2" />
-                                    <circle cx="150" cy="155" r="30" stroke-width="1.5" />
-                                    <line x1="130" y1="135" x2="142" y2="147" stroke-width="1.5" />
-                                </svg>
+                        <div class="flex flex-col gap-3">
+                            <div class="photo-hover h-[106px] md:h-[calc(50%-6px)]">
+                                <img src="images/h04614.jpg" alt="カフェ内観" loading="lazy">
                             </div>
-                            <div class="step-text-wrapper">
-                                <div class="step-num">02</div>
-                                <div class="step-label">5名を<br>厳選</div>
-                            </div>
-                        </div>
-
-                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(3)">
-                            <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 165 H 180" stroke-width="1.5" />
-                                    <path d="M40 165 V 100 L 100 65 L 160 100 V 165" stroke-width="1.2" />
-                                    <path d="M70 165 V 125 H 130 V 165" />
-                                    <path d="M10 90 Q 50 20, 100 60 T 190 90" stroke-opacity="0.3" stroke-dasharray="4 2" />
-                                    <rect x="85" y="135" width="30" height="30" fill="#1e3a8a" fill-opacity="0.05" />
-                                </svg>
-                            </div>
-                            <div class="step-text-wrapper">
-                                <div class="step-num">03</div>
-                                <div class="step-label">5つのプランを<br>直接提案</div>
-                            </div>
-                        </div>
-
-                        <div class="rounded-3xl step-trigger" onclick="openModalAtStep(4)">
-                            <div class="step-illustration">
-                                <svg viewBox="0 0 200 200" fill="none" stroke="#1e3a8a" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="45" y="45" width="110" height="130" rx="4" stroke-width="1.2" />
-                                    <line x1="65" y1="80" x2="135" y2="80" stroke-opacity="0.5" />
-                                    <line x1="65" y1="105" x2="135" y2="105" stroke-opacity="0.5" />
-                                    <line x1="65" y1="130" x2="110" y2="130" stroke-opacity="0.5" />
-                                    <circle cx="155" cy="50" r="28" fill="#1e3a8a" fill-opacity="0.08" />
-                                    <path d="M145 52 L 152 59 L 168 43" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                            <div class="step-text-wrapper">
-                                <div class="step-num">04</div>
-                                <div class="step-label">最適案を<br>選択</div>
+                            <div class="photo-hover h-[106px] md:h-[calc(50%-6px)]">
+                                <img src="images/h04604.jpg" alt="方杖の構造美" loading="lazy">
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Case Study Archive Section -->
-            <section class="mb-24 py-16 bg-[#1e3a8a] rounded-[48px] px-10 text-white relative overflow-hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                    <div class="lg:col-span-8">
-                        <h2 class="text-2xl md:text-3xl font-bold mb-6">コンペが生み出した設計実例</h2>
-                        <p class="opacity-80 text-sm md:text-base leading-relaxed mb-6">
-                            これまで私たちは住宅建築を中心に数百件の設計コンペを開催し、唯一無二の価値を形にしてきました。<br>
-                            正直に申し上げて、商業・ビジネス空間の実績はまだ多くはありません。<br><br>
-                            しかし、一軒一軒の「理想の暮らし」を極限まで突き詰め、建築家同士が熾烈な知恵を競い合ってきた住宅コンペの仕組みこそが、ビジネス空間における「勝てる設計」を生む最強のエンジンとなります。
+                    <div class="border-l-2 border-[#c9a96e] pl-5">
+                        <p class="text-[#c9a96e] text-xs font-bold uppercase tracking-widest mb-1">事務所 + カフェ　／　兵庫県養父市</p>
+                        <h3 class="font-serif text-lg md:text-xl font-bold text-[#0f1f4a] mb-2">
+                            建築が「地域のランドマーク」となり、<br class="hidden md:block">自走する集客を実現
+                        </h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            駐車場からでも一目で認識できる大屋根と、樹木の枝を思わせる方杖のデザインが、広告費ゼロで人を集め続ける空間を生み出しました。
                         </p>
                     </div>
-                    <div class="lg:col-span-4 text-center lg:text-right">
-                        <a href="http://a-netnavi.jp/archive/" target="_blank" class="btn-primary bg-white text-[#1e3a8a] inline-flex items-center gap-2 px-8">
-                            コンペ実例集を見る
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        </a>
-                    </div>
                 </div>
-            </section>
 
-            <!-- Branch Section -->
-            <section id="branch">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-gray-800">解決したい<span class="text-[#1e3a8a]">「経営課題」</span>はどれですか？</h2>
-                    <p class="text-gray-500">店舗改装・事務所新築。目的に合わせて専門プランをお選びください。</p>
+                <!-- 事例2: 損害保険会社オフィス -->
+                <div class="mb-14 fade-up">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                        <div class="photo-hover col-span-2 md:col-span-2 h-56 md:h-80">
+                            <img src="images/S-takemoto_101.jpg" alt="損害保険会社 外観" loading="lazy">
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <div class="photo-hover h-[106px] md:h-[calc(50%-6px)]">
+                                <img src="images/S-takemoto_122.jpg" alt="オフィス内観" loading="lazy">
+                            </div>
+                            <div class="photo-hover h-[106px] md:h-[calc(50%-6px)]">
+                                <img src="images/S-takemoto_126.jpg" alt="ラウンジスペース" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-l-2 border-[#c9a96e] pl-5">
+                        <p class="text-[#c9a96e] text-xs font-bold uppercase tracking-widest mb-1">損害保険会社　オフィス</p>
+                        <h3 class="font-serif text-lg md:text-xl font-bold text-[#0f1f4a] mb-2">
+                            洗練された空間が、<br class="hidden md:block">採用の質と定着率を変えた
+                        </h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            東京本社と同等以上の環境を地方で構築。採用応募の質が変わり、将来の幹部候補となる人材の確保に成功しました。
+                        </p>
+                    </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bento-card group">
-                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">👥</div>
-                        <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">採用に強いオフィス</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">優秀な人材が「ここで働きたい」と確信する空間。離職率を下げ、採用コストを削減する戦略的新築・改装。</p>
-                        <a href="recruitment.html" class="btn-primary w-full text-center justify-center">採用型モデルを見る</a>
-                    </div>
-                    <div class="bento-card group border-2 border-[#1e3a8a]/20 shadow-md">
-                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">✨</div>
-                        <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">集客できる空間</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">広告費に頼らず、空間そのものがファンを作る店舗設計。滞在時間、客単価、再来店率を科学する改装プラン。</p>
-                        <a href="sales.html" class="btn-primary w-full text-center justify-center">集客型モデルを見る</a>
-                    </div>
-                    <div class="bento-card group">
-                        <div class="text-4xl mb-6 group-hover:scale-110 transition-transform">🚀</div>
-                        <h3 class="text-2xl font-bold mb-4 text-[#1e3a8a]">事業を拡大する拠点</h3>
-                        <p class="text-gray-500 mb-8 flex-grow leading-relaxed">2号店、3号店と安定してスケールさせるための再現性。属人化を防ぎ、成長を加速させる拠点標準化モデル。</p>
-                        <a href="expansion.html" class="btn-primary w-full text-center justify-center">拡大型モデルを見る</a>
-                    </div>
+
+                <!-- 実例集リンク -->
+                <div class="text-center fade-up">
+                    <a href="http://a-netnavi.jp/archive/" target="_blank"
+                       class="inline-flex items-center gap-2 text-[#0f1f4a] text-sm font-bold border-b border-[#0f1f4a]/25 pb-1 hover:text-[#c9a96e] hover:border-[#c9a96e] transition-all">
+                        住宅建築のコンペ実例集をすべて見る
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </a>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <!-- ===== ⑤ 最終CTA ===== -->
+        <section class="py-24 md:py-32 px-6 bg-[#0f1f4a] text-center">
+            <div class="max-w-xl mx-auto">
+                <span class="gold-bar mx-auto block mb-10 fade-up"></span>
+                <h2 class="font-serif text-2xl md:text-4xl font-bold text-white mb-6 leading-tight fade-up">
+                    まず、話してみてください。
+                </h2>
+                <p class="text-white/55 text-sm md:text-base leading-relaxed mb-10 fade-up">
+                    計画の初期段階でも構いません。<br>
+                    設計コンペがどう経営に活きるかをご説明します。
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4RS73PtFj4qPCFe6c-NCD-3tQT5OCNZUoVvssnmFv_4V0Sg/viewform?usp=publish-editor"
+                   target="_blank"
+                   class="btn-gold text-sm md:text-base py-5 px-10 mb-5 fade-up">
+                    無料相談フォームへ
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <p class="text-white/30 text-xs fade-up">強引な営業は一切行いません</p>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <div class="font-bold text-lg md:text-xl accent-text mb-2 text-[#1e3a8a]">
-                <a href="http://a-netnavi.jp/" target="_blank" class="hover:opacity-80 transition-opacity">
-                    <span class="text-xs md:text-sm font-medium mr-0.5">一般社団法人</span>建築家ネットワーク・ナビ<span class="text-xs md:text-sm font-medium ml-2 border-l border-gray-300 pl-2">公式サイト</span>
-                </a>
+    <!-- ===== Footer ===== -->
+    <footer class="bg-white py-10 px-6 border-t border-gray-100 text-center">
+        <div class="max-w-5xl mx-auto">
+            <a href="http://a-netnavi.jp/" target="_blank"
+               class="inline-block font-bold text-sm text-[#0f1f4a] hover:opacity-60 transition-opacity mb-3">
+                <span class="text-xs font-normal">一般社団法人</span>　建築家ネットワーク・ナビ
+            </a>
+            <div class="mb-4">
+                <a href="http://a-netnavi.jp/company/" target="_blank"
+                   class="text-xs text-gray-400 hover:text-[#0f1f4a] transition-all">会社概要</a>
             </div>
-            <div class="mb-6">
-                <a href="http://a-netnavi.jp/company/" target="_blank" class="text-xs text-gray-500 hover:text-[#1e3a8a] transition-all">会社概要</a>
-            </div>
-            <p class="text-xs text-gray-400">© 2024 Architect Network Navi. All Rights Reserved.</p>
+            <p class="text-xs text-gray-300">© 2024 Architect Network Navi. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ===== スマホ固定CTAバー ===== -->
+    <div id="sticky-cta" class="md:hidden">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4RS73PtFj4qPCFe6c-NCD-3tQT5OCNZUoVvssnmFv_4V0Sg/viewform?usp=publish-editor"
+           target="_blank"
+           class="block w-full text-center bg-[#c9a96e] text-white font-bold py-4 rounded-full text-sm tracking-wide">
+            無料相談してみる →
+        </a>
+    </div>
+
+    <script>
+        const header = document.getElementById('header');
+        const stickyCta = document.getElementById('sticky-cta');
+        const heroSection = document.querySelector('.hero-section');
+
+        // ヘッダー＋スティッキーCTAのスクロール制御
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroH = heroSection.offsetHeight;
+
+            // ヘッダー背景
+            if (scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // スティッキーCTA（ヒーローの70%を過ぎたら表示）
+            if (scrollY > heroH * 0.7) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        });
+
+        // フェードインアニメーション
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+    </script>
+
 </body>
 </html>
